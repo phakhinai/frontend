@@ -1,0 +1,77 @@
+<app-content>
+    <content>
+        <div class="login-box">
+            <div class="login-logo">
+                ลงทะเบียนสมาชิก
+            </div>
+
+            <div class="login-box-body">
+                <p class="login-box-msg">กรุณากรอกข้อมูลให้ครบถ้วน</p>
+
+                <form class="register-form" [formGroup]="form" (submit)="onSubmit()">
+                    <div class="form-group">
+                        <input type="text" formControlName="idcard" class="form-control"
+                            placeholder="เลขบัตรประจำตัวประชาชน" maxlength="13">
+                        <div class="invalid-feedback">
+                            ข้อมูลเลขบัตรประจำตัวประชาชนไม่ถูกต้องกรุณาตรวจสอบ
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <ng-select formControlName="titlename" class="custom" [searchable]="false" [clearable]="false">
+                            <ng-option value="">กรุณาเลือก</ng-option>
+                            <ng-option value="นาย">นาย</ng-option>
+                            <ng-option value="นาง">นาง</ng-option>
+                            <ng-option value="นางสาว">นางสาว</ng-option>
+                        </ng-select>
+                        <div class="invalid-feedback">
+                            ข้อมูลคำนำหน้าชื่อไม่ถูกต้องกรุณาตรวจสอบ
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" formControlName="firstname" class="form-control" placeholder="ชื่อ">
+                        <div class="invalid-feedback">
+                            ข้อมูลชื่อไม่ถูกต้องกรุณาตรวจสอบ
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" formControlName="lastname" class="form-control" placeholder="นามสกุล">
+                        <div class="invalid-feedback">
+                            ข้อมูลนามสกุลม่ถูกต้องกรุณาตรวจสอบ
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" formControlName="studentcode" class="form-control"
+                            placeholder="รหัสนักศึกษา">
+                        <div class="invalid-feedback">
+                            ข้อมูลรหัสนักศึกษาไม่ถูกต้องกรุณาตรวจสอบ
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" formControlName="email" class="form-control" placeholder="อีเมล์">
+                        <div class="invalid-feedback">
+                            ข้อมูลอีเมล์ไม่ถูกต้องกรุณาตรวจสอบ
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 div-btn-register">
+                            <button type="submit" *ngIf="!submitLoading; else submitBtnLoading"
+                                class="btn btn-primary btn-block btn-flat">ลงทะเบียน</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="social-auth-links text-center">
+                    <a [routerLink]="['/', 'login']" class="text-center">ไปยังหน้าเข้าสู่ระบบ</a>
+                </div>
+            </div>
+            <!-- /.login-box-body -->
+        </div>
+        <!-- /.login-box -->
+    </content>
+</app-content>
+
+<!-- sibmit button loading template -->
+<ng-template #submitBtnLoading>
+    <button type="submit" class="btn btn-primary btn-block btn-flat" disabled>กำลังทำงาน..</button>
+</ng-template>

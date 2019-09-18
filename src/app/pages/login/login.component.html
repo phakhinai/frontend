@@ -1,0 +1,53 @@
+<app-content>
+    <content>
+        <div class="login-box">
+            <div class="login-logo">
+                <div>
+                    เข้าสู่ระบบ
+                </div>
+                RMUTI - Student loan
+            </div>
+            <!-- /.login-logo -->
+            <div class="login-box-body">
+                <p class="login-box-msg">กรุณาเข้าสู่ระบบเพื่อใช้งาน</p>
+
+                <form action="#" method="post">
+                    <div class="form-group has-feedback">
+                        <input type="text" class="form-control" placeholder="รหัสนักศึกษา">
+                        <span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" class="form-control" placeholder="รหัสผ่าน **ครั้งแรกเป็นเลขบัตรประชาชน">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div>
+                                <label>
+                                    <input type="checkbox" class="minimal">
+                                    &nbsp;&nbsp;จำฉันในระบบ
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-4">
+                            <button [routerLink]="['/', 'auth', 'profile']"
+                                class="btn btn-primary btn-block btn-flat">เข้าสู่ระบบ</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="social-auth-links text-center">
+                </div>
+                <!-- /.social-auth-links -->
+
+                <a href="#">I forgot my password</a><br>
+                <a [routerLink]="['/', 'register']" class="text-center">ลงทะเบียนเพื่อยื่นกู้รายใหม่</a>
+
+            </div>
+            <!-- /.login-box-body -->
+        </div>
+        <!-- /.login-box -->
+    </content>
+</app-content>
