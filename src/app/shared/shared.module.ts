@@ -5,8 +5,9 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { ContentComponent } from './layouts/content/content.component';
 
 import { RouterModule } from '@angular/router';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AlertService } from './services/alert.service';
@@ -19,6 +20,7 @@ import { AlertService } from './services/alert.service';
         RouterModule,
         ReactiveFormsModule,
         FormsModule,
+        HttpClientModule,
 
         NgSelectModule,
         ToastrModule.forRoot()
@@ -26,6 +28,7 @@ import { AlertService } from './services/alert.service';
     exports: [
         ReactiveFormsModule,
         FormsModule,
+        HttpClientModule,
 
         NgSelectModule,
 

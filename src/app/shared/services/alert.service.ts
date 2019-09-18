@@ -17,8 +17,8 @@ export class AlertService {
     ) {
         const obtions:Partial<IndividualConfig> = {
             timeOut: 3000,
-            progressAnimation: 'increasing',
-            progressBar: true,
+            // progressAnimation: 'increasing',
+            // progressBar: true,
         }
         switch (type) {
             case 'success': {

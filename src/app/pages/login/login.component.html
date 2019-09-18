@@ -11,28 +11,29 @@
             <div class="login-box-body">
                 <p class="login-box-msg">กรุณาเข้าสู่ระบบเพื่อใช้งาน</p>
 
-                <form action="#" method="post">
-                    <div class="form-group has-feedback">
-                        <input type="text" class="form-control" placeholder="รหัสนักศึกษา">
+                <form class="register-form" [formGroup]="form" (submit)="onSubmit()">
+                    <div class="form-group">
+                        <input type="text" formControlName="studentcode" class="form-control"
+                            placeholder="รหัสนักศึกษา">
                         <span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
                     </div>
-                    <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="รหัสผ่าน **ครั้งแรกเป็นเลขบัตรประชาชน">
+                    <div class="form-group">
+                        <input type="password" formControlName="password" class="form-control"
+                            placeholder="รหัสผ่าน **ครั้งแรกเป็นเลขบัตรประชาชน" maxlength="13">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="row">
                         <div class="col-xs-8">
                             <div>
                                 <label>
-                                    <input type="checkbox" class="minimal">
+                                    <input type="checkbox" formControlName="remember" class="minimal">
                                     &nbsp;&nbsp;จำฉันในระบบ
                                 </label>
                             </div>
                         </div>
                         <!-- /.col -->
                         <div class="col-xs-4">
-                            <button [routerLink]="['/', 'auth', 'profile']"
-                                class="btn btn-primary btn-block btn-flat">เข้าสู่ระบบ</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">เข้าสู่ระบบ</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -43,7 +44,7 @@
                 <!-- /.social-auth-links -->
 
                 <a href="#">I forgot my password</a><br>
-                <a [routerLink]="['/', 'register']" class="text-center">ลงทะเบียนเพื่อยื่นกู้รายใหม่</a>
+                <a [routerLink]="['/', Url.Register]" class="text-center">ลงทะเบียนเพื่อยื่นกู้รายใหม่</a>
 
             </div>
             <!-- /.login-box-body -->

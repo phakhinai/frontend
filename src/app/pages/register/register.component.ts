@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/shared/services/alert.service';
+import { IRegisterComponent } from './register.interface';
+import { AccountService } from 'src/app/services/account.service';
+import { Router } from '@angular/router';
+import { AppURL } from 'src/app/app.url';
 
 @Component({
     selector: 'app-register',
@@ -8,24 +12,29 @@ import { AlertService } from 'src/app/shared/services/alert.service';
     styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, IRegisterComponent {
 
     constructor(
         private builder: FormBuilder,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private accountService: AccountService,
+        private router: Router
     ) {
         this.createFormData();
     }
 
+    Url = AppURL;
     form: FormGroup;
 
     /** Load data disable button */
     submitLoading = false;
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
-    onSubmit() {
+    /** บันทึกข้อมูลสมัครสมาชิก */
+    onSubmit(): void {
+
+        /** เปลี่ยนสถานะช่องกรอกข้อมูล */
         this.form.get('idcard').markAsTouched();
         this.form.get('titlename').markAsTouched();
         this.form.get('firstname').markAsTouched();
@@ -33,45 +42,53 @@ export class RegisterComponent implements OnInit {
         this.form.get('studentcode').markAsTouched();
         this.form.get('email').markAsTouched();
 
+        /** ตรวจสอบข้อมูล Validate */
         if (this.form.invalid) {
             return this.alertService.notify();
-            // return alert('ข้อมูลบางอย่างไม่ถูกต้อง กรุณาลองอีกครั้ง');
         }
 
+        /** แสดงปุ่ม Loading */
         this.submitLoading = true;
 
-
-        this.alertService.notify('บันทึกข้อมูลสำเร็จ', 'แจ้งเตือน', 'success');
-        this.submitLoading = false;
+        /** ส่งข้อมูลไปที่ Web Server */
+        // this.accountService
+        //     .onRegister(this.form.value)
+        //     .then(res => {
+        //         this.alertService.notify('ลงทะเบียนสำเร็จ', 'แจ้งเตือน', 'success');
+        //         this.router.navigate(['/', 'login']);
+        //     })
+        //     .catch(err => this.alertService.notify(err.Message));
 
         /** ส่งข้อมูลไปบันทึก */
-        // this.accountService
-        // 	.onRegister(this.form.value)
-        // 	.subscribe(
-        // 		() => {
-        // 			// console.log({ message: 'Save successful.' });
-        // 			this.snotifyService.success('บันทึกข้อมูลสำเร็จ', 'บันทึกข้อมูล', this.getConfig());
-        // 			this.submitLoading = false;
-        // 		},
-        // 		(error) => {
-        // 			this.snotifyService.error(error.message, 'ผิดพลาด', this.getConfig());
-        // 			this.submitLoading = false;
-        // 		}
-        // 	);
+        this.accountService
+            .onRegister(this.form.value)
+            .subscribe(
+                () => {
+                    // console.log({ message: 'Save successful.' });
+                    this.alertService.notify('ลงทะเบียนสำเร็จ', 'แจ้งเตือน', 'success');
+                    this.submitLoading = false;
+                    this.router.navigate(['/', 'login']);
+                },
+                (error) => {
+                    this.alertService.notify(error.Message)
+                    this.submitLoading = false;
+                }
+            );
     }
 
-    // Create Form
+    /** สร้างฟอร๋ม */
     private createFormData() {
         this.form = this.builder.group({
-            idcard: ['1309900485128', [Validators.required, Validators.pattern(/^[0-9]{13}$/)]],
+            idcard: [Math.floor(Math.random() * 9000000000000) + 1000000000000, [Validators.required, Validators.pattern(/^[0-9]{13}$/)]],
             titlename: ['นาย', [Validators.required]],
             firstname: ['ภาคินัย', [Validators.required]],
             lastname: ['หมายสุข', [Validators.required]],
-            studentcode: ['551733022022-7', [Validators.required]],
-            email: ['m.phakhinai@gmail.com', [Validators.required, Validators.email]]
+            studentcode: [(Math.floor(Math.random() * 900000000000) + 100000000000) + '-7', [Validators.required]],
+            email: [Math.floor(Math.random() * 1000001) + '@gmail.com', [Validators.required, Validators.email]]
         });
     }
 
+    /** สร้างฟอร๋ม */
     // private createFormData() {
     //     this.form = this.builder.group({
     //         idcard: ['', [Validators.required, Validators.pattern(/^[0-9]{13}$/)]],
