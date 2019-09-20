@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { ContentComponent } from './layouts/content/content.component';
 
@@ -11,12 +10,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AlertService } from './services/alert.service';
+import { HttpService } from './services/http.service';
+import { AuthNavbarComponent } from './auth-layouts/auth-navbar/auth-navbar.component';
+import { AuthContentComponent } from './auth-layouts/auth-content/auth-content.component';
 
 @NgModule({
-    declarations: [NavbarComponent, ContentComponent],
+    declarations: [NavbarComponent, ContentComponent, AuthNavbarComponent, AuthContentComponent],
     imports: [
         CommonModule,
-        BrowserAnimationsModule,
         RouterModule,
         ReactiveFormsModule,
         FormsModule,
@@ -32,10 +33,12 @@ import { AlertService } from './services/alert.service';
 
         NgSelectModule,
 
-        ContentComponent
+        ContentComponent,
+        AuthContentComponent
     ],
     providers: [
-        AlertService
+        AlertService,
+        HttpService
     ]
 })
 export class SharedModule { }

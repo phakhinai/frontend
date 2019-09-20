@@ -15,7 +15,7 @@ export class AlertService {
         title: string = 'แจ้งเตือน',
         type: string = 'warning'
     ) {
-        const obtions:Partial<IndividualConfig> = {
+        const obtions: Partial<IndividualConfig> = {
             timeOut: 3000,
             // progressAnimation: 'increasing',
             // progressBar: true,

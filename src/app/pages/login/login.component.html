@@ -33,7 +33,8 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-xs-4">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">เข้าสู่ระบบ</button>
+                            <button type="submit" *ngIf="!submitLoading; else submitBtnLoading"
+                                class="btn btn-primary btn-block btn-flat">เข้าสู่ระบบ</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -52,3 +53,8 @@
         <!-- /.login-box -->
     </content>
 </app-content>
+
+<!-- sibmit button loading template -->
+<ng-template #submitBtnLoading>
+    <button type="submit" class="btn btn-primary btn-block btn-flat" disabled>กำลังทำงาน..</button>
+</ng-template>

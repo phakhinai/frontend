@@ -3,8 +3,9 @@ import { ILoginComponent } from './login.interface';
 import { AppURL } from 'src/app/app.url';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/shared/services/alert.service';
-import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
+import { AuthenService } from 'src/app/services/authen.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -16,18 +17,20 @@ export class LoginComponent implements OnInit, ILoginComponent {
     constructor(
         private builder: FormBuilder,
         private alertService: AlertService,
-        private router: Router,
-        private accountService: AccountService
+        private accountService: AccountService,
+        private authenService: AuthenService,
+        private router: Router
     ) {
         this.createFormData();
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
     Url = AppURL;
     form: FormGroup;
+
+    /** Load data disable button */
+    submitLoading = false;
 
     onSubmit(): void {
 
@@ -39,20 +42,32 @@ export class LoginComponent implements OnInit, ILoginComponent {
         if (this.form.invalid) {
             return this.alertService.notify();
         }
+
+        /** แสดงปุ่ม Loading */
+        this.submitLoading = true;
+
+        /** ส่งข้อมูลไปบันทึก */
         this.accountService
             .onLogin(this.form.value)
-            .then(res => {
-                console.log(res);
-                // this.router.navigate(['/', AppURL.Register]);
-            })
-            .catch(err => this.alertService.notify(err.Message));
+            .then(
+                res => {
+                    // เก็บ Access token ไว้ใน Local storage
+                    this.authenService.setAuthenticated(res.accessToken);
+                    this.alertService.notify('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', 'info')
+                    this.submitLoading = false;
+                    this.router.navigate(['/', this.Url.Auth]);
+                })
+            .catch(err => {
+                this.alertService.notify(err.Message)
+                this.submitLoading = false;
+            });
     }
 
     /** สร้างฟอร๋ม */
     private createFormData() {
         this.form = this.builder.group({
-            studentcode: ['', Validators.required],
-            password: ['', Validators.required],
+            studentcode: ['551733022022-7', Validators.required],
+            password: ['1234', Validators.required],
             remember: [true]
         });
     }

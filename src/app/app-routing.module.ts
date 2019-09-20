@@ -9,7 +9,13 @@ import { AppURL } from './app.url';
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: AppURL.Login, component: LoginComponent },
-    { path: AppURL.Register, component: RegisterComponent }
+    { path: AppURL.Register, component: RegisterComponent },
+
+    /** Auth module */
+    {
+        path: AppURL.Auth,
+        loadChildren: () => import('./modules/auth/auth.module').then(mod => mod.AuthModule)
+    }
 ];
 
 @NgModule({

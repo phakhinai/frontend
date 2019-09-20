@@ -50,30 +50,20 @@ export class RegisterComponent implements OnInit, IRegisterComponent {
         /** แสดงปุ่ม Loading */
         this.submitLoading = true;
 
-        /** ส่งข้อมูลไปที่ Web Server */
-        // this.accountService
-        //     .onRegister(this.form.value)
-        //     .then(res => {
-        //         this.alertService.notify('ลงทะเบียนสำเร็จ', 'แจ้งเตือน', 'success');
-        //         this.router.navigate(['/', 'login']);
-        //     })
-        //     .catch(err => this.alertService.notify(err.Message));
-
-        /** ส่งข้อมูลไปบันทึก */
+        /** ส่งข้อมูลผ่าน Account service ไปบันทึก */
         this.accountService
             .onRegister(this.form.value)
-            .subscribe(
+            .then(
                 () => {
-                    // console.log({ message: 'Save successful.' });
-                    this.alertService.notify('ลงทะเบียนสำเร็จ', 'แจ้งเตือน', 'success');
+                    this.alertService.notify('ลงทะเบียนสำเร็จ', 'บันทึกข้อมูล', 'success');
                     this.submitLoading = false;
-                    this.router.navigate(['/', 'login']);
-                },
-                (error) => {
-                    this.alertService.notify(error.Message)
+                    this.router.navigate(['/', this.Url.Login]);
+                })
+            .catch(
+                err => {
+                    this.alertService.notify(err.Message)
                     this.submitLoading = false;
-                }
-            );
+                });
     }
 
     /** สร้างฟอร๋ม */
@@ -87,17 +77,4 @@ export class RegisterComponent implements OnInit, IRegisterComponent {
             email: [Math.floor(Math.random() * 1000001) + '@gmail.com', [Validators.required, Validators.email]]
         });
     }
-
-    /** สร้างฟอร๋ม */
-    // private createFormData() {
-    //     this.form = this.builder.group({
-    //         idcard: ['', [Validators.required, Validators.pattern(/^[0-9]{13}$/)]],
-    //         titlename: ['', [Validators.required]],
-    //         firstname: ['', [Validators.required]],
-    //         lastname: ['', [Validators.required]],
-    //         studentcode: ['', [Validators.required]],
-    //         email: ['', [Validators.required, Validators.email]]
-    //     });
-    // }
-
 }
