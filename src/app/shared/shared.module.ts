@@ -13,9 +13,11 @@ import { AlertService } from './services/alert.service';
 import { HttpService } from './services/http.service';
 import { AuthNavbarComponent } from './auth-layouts/auth-navbar/auth-navbar.component';
 import { AuthContentComponent } from './auth-layouts/auth-content/auth-content.component';
+import { AuthSidebarComponent } from './auth-layouts/auth-sidebar/auth-sidebar.component';
+import { AuthContentNonsidebarComponent } from './auth-layouts/auth-content-nonsidebar/auth-content-nonsidebar.component';
 
 @NgModule({
-    declarations: [NavbarComponent, ContentComponent, AuthNavbarComponent, AuthContentComponent],
+    declarations: [NavbarComponent, ContentComponent, AuthNavbarComponent, AuthContentComponent, AuthSidebarComponent, AuthContentNonsidebarComponent],
     imports: [
         CommonModule,
         RouterModule,
@@ -34,7 +36,8 @@ import { AuthContentComponent } from './auth-layouts/auth-content/auth-content.c
         NgSelectModule,
 
         ContentComponent,
-        AuthContentComponent
+        AuthContentComponent,
+        AuthContentNonsidebarComponent
     ],
     providers: [
         AlertService,

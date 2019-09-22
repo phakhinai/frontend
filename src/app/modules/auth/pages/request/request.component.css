@@ -1,0 +1,44 @@
+.checkbox,
+.radio {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+label.checkbox,
+label.radio {
+    font-weight: 400;
+}
+
+label.radio-inline {
+    font-weight: 400;
+}
+
+h3.box-title {
+    margin: 0;
+}
+
+hr.under-line {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.bs-stepper-label {
+    font-size: 14px;
+}
+
+.bs-stepper .step-trigger {
+    padding: 10px;
+    color: #333;
+}
+
+.active .bs-stepper-circle {
+    background-color: #3c8dbc;
+}
+
+.head-instepper {
+    text-align: center;
+    margin-bottom: 5px;
+    padding: 7px 16px;
+    font-size: 14px;
+    background-color: darkgray;
+}

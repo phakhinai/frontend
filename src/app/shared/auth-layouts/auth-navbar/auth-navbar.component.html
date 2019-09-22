@@ -45,7 +45,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
+                                        <a [routerLink]="['/', AppURL.Auth, AuthURL.Profile]" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
                                     </div>
                                     <div class="pull-right">
                                         <a class="btn btn-default btn-flat" (click)="onLogout()">ออกจากระบบ</a>

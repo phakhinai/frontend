@@ -1,9 +1,8 @@
 <app-auth-content>
     <div class="box box-default">
         <div class="box-header with-border">
-            <h3 class="box-title">ข้อมูลส่วนตัว
-                <small>CODE00101001</small>
-            </h3>
+            <a [routerLink]="['/', AppURL.Auth, AuthURL.Request]" type="button"
+                class="btn btn-primary btn-flat">เพิ่มสมาชิก</a>
         </div>
         <!-- form start -->
         <div class="box-body">

@@ -67,14 +67,26 @@ export class RegisterComponent implements OnInit, IRegisterComponent {
     }
 
     /** สร้างฟอร๋ม */
-    private createFormData() {
-        this.form = this.builder.group({
-            idcard: [Math.floor(Math.random() * 9000000000000) + 1000000000000, [Validators.required, Validators.pattern(/^[0-9]{13}$/)]],
-            titlename: ['นาย', [Validators.required]],
-            firstname: ['ภาคินัย', [Validators.required]],
-            lastname: ['หมายสุข', [Validators.required]],
-            studentcode: [(Math.floor(Math.random() * 900000000000) + 100000000000) + '-7', [Validators.required]],
-            email: [Math.floor(Math.random() * 1000001) + '@gmail.com', [Validators.required, Validators.email]]
-        });
-    }
+	private createFormData() {
+		this.form = this.builder.group({
+			idcard: ['', [Validators.required, Validators.pattern(/^[0-9]{13}$/)]],
+			titlename: ['', [Validators.required]],
+			firstname: ['', [Validators.required]],
+			lastname: ['', [Validators.required]],
+			studentcode: ['', [Validators.required]],
+			email: ['', [Validators.required, Validators.email]]
+		});
+	}
+
+    /** สร้างฟอร๋ม */
+    // private createFormData() {
+    //     this.form = this.builder.group({
+    //         idcard: [Math.floor(Math.random() * 9000000000000) + 1000000000000, [Validators.required, Validators.pattern(/^[0-9]{13}$/)]],
+    //         titlename: ['นาย', [Validators.required]],
+    //         firstname: ['ภาคินัย', [Validators.required]],
+    //         lastname: ['หมายสุข', [Validators.required]],
+    //         studentcode: [(Math.floor(Math.random() * 900000000000) + 100000000000) + '-7', [Validators.required]],
+    //         email: [Math.floor(Math.random() * 1000001) + '@gmail.com', [Validators.required, Validators.email]]
+    //     });
+    // }
 }
