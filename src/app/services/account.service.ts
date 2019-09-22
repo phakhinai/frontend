@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { IRegister } from '../pages/register/register.interface';
 import { ILogin } from '../pages/login/login.interface';
 import { HttpService } from '../shared/services/http.service';

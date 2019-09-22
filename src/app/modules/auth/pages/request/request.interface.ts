@@ -19,19 +19,53 @@ export interface IRequest {
     //#endregion
 
     //#region ส่วนของข้อมูลส่วนตัว
-    req_titlename: string,
-    req_firstname: string,
-    req_lastname: string,
-    req_birthdate: string,
-    req_age: number,
-    req_nationality: string,
-    req_ethnicity: string,
-    req_education_level: string,
-    req_student_level: string,
-    req_faculty: string,
-    req_branch: string,
-    req_program: string,
-    req_grade: string,
+    req_member: {
+        titlename: string,
+        firstname: string,
+        lastname: string,
+        birthdate: string,
+        age: number,
+        nationality: string,
+        ethnicity: string,
+        education_level: string,
+        student_level: string,
+        faculty: string,
+        branch: string,
+        program: string,
+        grade: string,
+        support: {
+            name: string
+            relation: string
+            amount: number
+        },
+        add_permanent: {
+            adddress: string
+            province: string
+            district: string
+            sub_district: string
+            postcode: string
+            telephone: string
+        },
+        add_present: {
+            adddress: string
+            province: string
+            district: string
+            sub_district: string
+            postcode: string
+            telephone: string
+        },
+        graduated: string,
+        graduate: {
+            academy: string
+            faculty: string
+            branch: string
+        },
+        funded: string,
+        funds: Array<IFund>,
+
+        borrowed: string,
+        borrows: Array<IFund>,
+    }
     //#endregion
 
     //#region ส่วนของที่อยู่
@@ -85,6 +119,6 @@ export interface IBorrow {
     year: string,
     educ_level: string,
     stud_level: string,
-    campus: string,
+    campus: string
     amount: number
 }

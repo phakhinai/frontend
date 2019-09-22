@@ -1,11 +1,11 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Input } from '@angular/core';
 import Stepper from 'bs-stepper';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { AppURL } from 'src/app/app.url';
-import { IAccount, AccountService } from 'src/app/services/account.service';
-import { AuthenService } from 'src/app/services/authen.service';
+import { IAccount } from 'src/app/services/account.service';
 import { AlertService } from 'src/app/shared/services/alert.service';
-import { Router } from '@angular/router';
+import { Observable, from, of } from 'rxjs';
+import { RequestService } from '../../services/request.service';
 
 declare const $;
 
@@ -19,12 +19,9 @@ export class RequestComponent implements OnInit {
 
     constructor(
         private builder: FormBuilder,
-        private accountService: AccountService,
-        private authenService: AuthenService,
-        private alertService: AlertService,
-        private router: Router,
+        private requestService: RequestService,
+        private alertService: AlertService
     ) {
-        this.initialLoadUserLogin();
         this.createFormData();
     }
 
@@ -32,18 +29,54 @@ export class RequestComponent implements OnInit {
 
     Url = AppURL;
     form: FormGroup;
-    userLogin: IAccount;
+    userLogin: Observable<IAccount>;
+    token: string;
 
     options = true;
 
     get funded(): FormControl { return this.form.get('req_member').get('funded') as FormControl }
-
     get funds(): FormArray { return this.form.get('req_member').get('funds') as FormArray }
     get borrows(): FormArray { return this.form.get('req_member').get('borrows') as FormArray }
+    get sibling_studies(): FormArray { return this.form.get('req_family').get('sibling_studies') as FormArray }
+    get sibling_works(): FormArray { return this.form.get('req_family').get('sibling_works') as FormArray }
 
     ngOnInit() {
         this.stepper = new Stepper(document.querySelector('#stepperRequest'), {});
     }
+
+    setRequestLoanMem(val) {
+        val == "No" ? this.form.get('req_loanproved').setValue('Yes') : this.form.get('req_loanproved').setValue(null);
+    }
+
+    //#region Function ส่วนของหน้า ข้อมูลครอบครัว
+
+    addSiblingStudy(): void {
+        this.sibling_studies.push(
+            this.builder.group({
+                be: [],
+                sex: [],
+                age: [],
+                level: [],
+                school: []
+            })
+        )
+    }
+
+    addSiblingWork(): void {
+        this.sibling_works.push(
+            this.builder.group({
+                be: [],
+                sex: [],
+                age: [],
+                level: [],
+                school: []
+            })
+        )
+    }
+
+    //#endregion
+
+    //#region Function ส่วนของหน้า ข้อมูลส่วนตัว
 
     /** เพิ่ม Form รายการที่เคยได้รับทุน */
     addFund(): void {
@@ -80,22 +113,9 @@ export class RequestComponent implements OnInit {
         this.borrows.removeAt(index);
     }
 
-    /** ​ดึงข้อมูลผู้ใช้งานจาก Access Token */
-    private initialLoadUserLogin() {
-        this.accountService
-            .getUserLogin(this.authenService.getAuthenticated())
-            .then(res => {
-                this.userLogin = res;
-                console.log(this.userLogin);
-            })
-            .catch(err => {
-                this.alertService.notify(err.Message);
-                this.authenService.clearAuthenticated();
-                this.router.navigate(['/', AppURL.Login]);
-            });
-    }
+    //#endregion
 
-    /** สร้างฟอร๋ม */
+    /** สร้างฟอร๋มทั้งหมด */
     private createFormData() {
         this.form = this.builder.group({
             //#region ประเภทการกู้
@@ -160,6 +180,105 @@ export class RequestComponent implements OnInit {
 
             }),
             //#endregion
+
+            //#region ส่วนของ ข้อมูลครอบครัว
+            req_family: this.builder.group({
+                father_status: ["ยังมีชีวิตอยู่"],
+                father: this.builder.group({
+                    full_name: [],
+                    id_card: [],
+                    age: [],
+                    education: [],
+                    school: [],
+                    career: this.builder.group({
+                        name: [],
+                        level_1: [],
+                        level_2: [],
+                        income: []
+                    }),
+                    address: this.builder.group({
+                        add_no: [],
+                        province: [],
+                        district: [],
+                        sub_district: [],
+                        postcode: [],
+                        telephone: []
+                    })
+                }),
+                mother_status: ["ยังมีชีวิตอยู่"],
+                mother: this.builder.group({
+                    full_name: [],
+                    id_card: [],
+                    age: [],
+                    education: [],
+                    school: [],
+                    career: this.builder.group({
+                        name: [],
+                        level_1: [],
+                        level_2: [],
+                        income: []
+                    }),
+                    address: this.builder.group({
+                        add_no: [],
+                        province: [],
+                        district: [],
+                        sub_district: [],
+                        postcode: [],
+                        telephone: []
+                    })
+                }),
+                marry_status: [],
+                parent_status: ["ยังมีชีวิตอยู่"],
+                parent: this.builder.group({
+                    full_name: [],
+                    id_card: [],
+                    age: [],
+                    education: [],
+                    school: [],
+                    career: this.builder.group({
+                        name: [],
+                        level_1: [],
+                        level_2: [],
+                        income: []
+                    }),
+                    address: this.builder.group({
+                        add_no: [],
+                        province: [],
+                        district: [],
+                        sub_district: [],
+                        postcode: [],
+                        telephone: []
+                    })
+                }),
+                total_sibling: [],
+                total_brother: [],
+                total_sister: [],
+                self_sibling: [],
+                sibling_studies: this.builder.array([]),
+                sibling_works: this.builder.array([]),
+                spouse: this.builder.group({
+                    full_name: [],
+                    id_card: [],
+                    age: [],
+                    education: [],
+                    school: [],
+                    career: this.builder.group({
+                        name: [],
+                        level_1: [],
+                        level_2: [],
+                        income: []
+                    }),
+                    address: this.builder.group({
+                        add_no: [],
+                        province: [],
+                        district: [],
+                        sub_district: [],
+                        postcode: [],
+                        telephone: []
+                    })
+                })
+            })
+            //#endregion
         });
     }
 
@@ -172,7 +291,15 @@ export class RequestComponent implements OnInit {
     }
 
     onSubmit(): void {
-        console.log(this.form.value);
+        this.requestService
+            .createRequest(this.form.value)
+            .then(
+                () => {
+                })
+            .catch(
+                err => {
+                    this.alertService.notify(err.Message)
+                });
     }
 
 }
