@@ -26,6 +26,13 @@
                             <span class="bs-stepper-label">ข้อมูลผู้กู้</span>
                         </button>
                     </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#stepperRequest-3">
+                        <button type="button" class="step-trigger" role="tab" aria-controls="stepperRequest-3">
+                            <span class="bs-stepper-circle">3</span>
+                            <span class="bs-stepper-label">ข้อมูลบิดา/มารดา/ผู้ปกครอง</span>
+                        </button>
+                    </div>
                 </div>
                 <!-- Stepper content -->
                 <div class="bs-stepper-content">
@@ -158,159 +165,838 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4>1.ข้อมูลส่วนตัวผู้กู้</h4>
+                                    <!-- ส่วนข้อมูลส่วนตัว -->
+                                    <div formGroupName="req_member">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="titlename">คำนำหน้า</label>
+                                                    <ng-select formControlName="titlename" class="custom"
+                                                        [searchable]="true" [clearable]="false" placeholder="กรุณาเลือก"
+                                                        id="titlename">
+                                                        <ng-option value="นาย">นาย</ng-option>
+                                                        <ng-option value="นางสาว">นางสาว</ng-option>
+                                                        <ng-option value="นาง">นาง</ng-option>
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="firstname">ชื่อ</label>
+                                                    <input type="text" formControlName="firstname" class="form-control"
+                                                        id="firstname" placeholder="ชื่อ" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label for="lastname">นามสกุล</label>
+                                                    <input type="text" formControlName="lastname" class="form-control"
+                                                        id="lastname" placeholder="นามสกุล" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label for="birthdate">วัน / เดือน / ปี ... เกิด</label>
+                                                    <input type="date" formControlName="birthdate" class="form-control"
+                                                        id="birthdate" placeholder="วัน / เดือน / ปี เกิด" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="age">อายุ</label>
+                                                    <input type="text" formControlName="age" class="form-control"
+                                                        id="age" placeholder="อายุ" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nationality">สัญชาติ</label>
+                                                    <input type="text" formControlName="nationality"
+                                                        class="form-control" id="nationality" placeholder="สัญชาติ" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="ethnicity">เชื้อชาติ</label>
+                                                    <input type="text" formControlName="ethnicity" class="form-control"
+                                                        id="ethnicity" placeholder="เชื่อชาติ" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label for="education_level">ระดับการศึกษา</label>
+                                                    <ng-select formControlName="education_level" class="custom"
+                                                        [searchable]="true" [clearable]="false" id="education_level"
+                                                        placeholder=" กรุณาเลือก">
+                                                        <ng-option value="1">ประกาศนียบัตรวิชาชีพชั้นสูง</ng-option>
+                                                        <ng-option value="2">ปริญญาตรี</ng-option>
+                                                        <ng-option value="3">ปริญญาโท</ng-option>
+                                                        <ng-option value="4">ปริญญาเอก</ng-option>
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="student_level">ชั่นปีที่</label>
+                                                    <input type="text" formControlName="student_level"
+                                                        class="form-control" id="student_level"
+                                                        placeholder="ชั่นปีที่" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="faculty">คณะ</label>
+                                                    <ng-select formControlName="faculty" class="custom"
+                                                        [searchable]="true" [clearable]="false" id="faculty"
+                                                        placeholder="กรุณาเลือก">
+                                                        <ng-option value="1">วิศวกรรมศาสตร์และสถาปัตยกรรมศาสตร์
+                                                        </ng-option>
+                                                        <ng-option value="2">วิทยาศาสตร์และศิลปศาสตร์</ng-option>
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="branch">สาขาวิชา</label>
+                                                    <ng-select formControlName="branch" class="custom"
+                                                        [searchable]="true" [clearable]="false" id="branch"
+                                                        placeholder="กรุณาเลือก">
+                                                        <ng-option value="1">วิศวกรรมคอมพิวเตอร์</ng-option>
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="program">โปรแกรมวิชา</label>
+                                                    <ng-select formControlName="program" class="custom"
+                                                        [searchable]="true" [clearable]="false" id="program"
+                                                        placeholder="กรุณาเลือก">
+                                                        <ng-option value="1">
+                                                            1733022 - สาขาวิชาวิศวกรรมคอมพิวเตอร์ (ป.ตรี-ปกติ)
+                                                        </ng-option>
+                                                        <ng-option value="2">
+                                                            1733023 - สาขาวิชาวิศวกรรมคอมพิวเตอร์ (ป.ตรี-สมทบ)
+                                                        </ng-option>
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="grade">คะแนนเฉลี่ยสะสมปีการศึกษาก่อนหน้า</label>
+                                                    <input type="text" formControlName="grade" class="form-control"
+                                                        id="grade" placeholder="คะแนนเฉลี่ยสะสม" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div formGroupName="add_permanent">
+                                            <!-- ที่อยู่ตามทะเบียนบ้าน -->
+                                            <h4>2.ที่อยู่ตามทะเบียนบ้าน</h4>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="adddress">ที่อยู่ตามทะเบียนบ้าน</label>
+                                                        <input type="text" formControlName="adddress"
+                                                            class="form-control" id="adddress"
+                                                            placeholder="ที่อยู่ตามทะเบียนบ้าน" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="province">จังหวัด</label>
+                                                        <ng-select formControlName="province" class="custom"
+                                                            [searchable]="true" [clearable]="false" id="province"
+                                                            placeholder="กรุณาเลือก">
+                                                            <ng-option value="1">นครราชสีมา</ng-option>
+                                                            <ng-option value="2">สระบุรี</ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="district">อำเภอ/เขต</label>
+                                                        <ng-select formControlName="district" class="custom"
+                                                            [searchable]="true" [clearable]="false" id="district"
+                                                            placeholder="กรุณาเลือก">
+                                                            <ng-option value="1">เมืองนครราชสีมา</ng-option>
+                                                            <ng-option value="2">โนนไทย</ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="sub_district">ตำบล/แขวง</label>
+                                                        <ng-select formControlName="sub_district" class="custom"
+                                                            [searchable]="true" [clearable]="false" id="sub_district"
+                                                            placeholder="กรุณาเลือก">
+                                                            <ng-option value="1">ในเมือง</ng-option>
+                                                            <ng-option value="2">สุรนารี</ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="postcode">รหัสไปรษณีย์</label>
+                                                        <input type="text" formControlName="postcode"
+                                                            class="form-control" id="postcode"
+                                                            placeholder="รหัสไปรษณีย์" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="telephone">หมายเลขโทรศัพท์</label>
+                                                        <input type="text" formControlName="postcode"
+                                                            class="form-control" id="telephone"
+                                                            placeholder="หมายเลขโทรศัพท์" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div formGroupName="add_present">
+                                            <!-- ที่อยู่ปัจจุบัน -->
+                                            <h4>3.ที่อยู่ปัจจุบัน</h4>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="adddress">ที่อยู่ปัจจุบัน</label>
+                                                        <input type="text" formControlName="adddress"
+                                                            class="form-control" id="adddress"
+                                                            placeholder="ที่อยู่ปัจจุบัน" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="province">จังหวัด</label>
+                                                        <ng-select formControlName="province" class="custom"
+                                                            [searchable]="true" [clearable]="false" id="province"
+                                                            placeholder="กรุณาเลือก">
+                                                            <ng-option value="1">นครราชสีมา</ng-option>
+                                                            <ng-option value="2">สระบุรี</ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="district">อำเภอ/เขต</label>
+                                                        <ng-select formControlName="district" class="custom"
+                                                            [searchable]="true" [clearable]="false" id="district"
+                                                            placeholder="กรุณาเลือก">
+                                                            <ng-option value="1">เมืองนครราชสีมา</ng-option>
+                                                            <ng-option value="2">โนนไทย</ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="sub_district">ตำบล/แขวง</label>
+                                                        <ng-select formControlName="sub_district" class="custom"
+                                                            [searchable]="true" [clearable]="false" id="sub_district"
+                                                            placeholder="กรุณาเลือก">
+                                                            <ng-option value="1">ในเมือง</ng-option>
+                                                            <ng-option value="2">สุรนารี</ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="postcode">รหัสไปรษณีย์</label>
+                                                        <input type="text" formControlName="postcode"
+                                                            class="form-control" id="postcode"
+                                                            placeholder="รหัสไปรษณีย์" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="telephone">หมายเลขโทรศัพท์</label>
+                                                        <input type="text" formControlName="postcode"
+                                                            class="form-control" id="telephone"
+                                                            placeholder="หมายเลขโทรศัพท์" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- */ที่อยู่ปัจจุบัน -->
+                                        </div>
+                                        <div formGroupName="support">
+                                            <!-- ผู้อุปการะด้านการเงิน -->
+                                            <h4>4.ผู้อุปการะด้านการเงิน</h4>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="name">ข้าพเจ้าได้รับอุปการะด้านการเงินจาก</label>
+                                                        <input type="text" formControlName="name" class="form-control"
+                                                            id="name"
+                                                            placeholder="ข้าพเจ้าได้รับอุปการะด้านการเงินจาก" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="relation">มีความสัมพันธ์เป็น</label>
+                                                        <input type="text" formControlName="relation"
+                                                            class="form-control" id="relation"
+                                                            placeholder="มีความสัมพันธ์เป็น" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="amount">ได้รับค่าใช้จ่ายเดือนละ
+                                                            (นอกเหนือจากค่าเลาเรียน)</label>
+                                                        <input type="text" formControlName="amount" class="form-control"
+                                                            id="amount" placeholder="ได้รับค่าใช้จ่ายเดือนละ" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- */ผู้อุปการะด้านการเงิน -->
+                                        </div>
+                                        <!-- ประวัติการศึกษา -->
+                                        <h4>5.ประวัติการศึกษา</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="graduate_degree">เคยสำเร็จการศึกษาระดับปริญญาตรีหรือไม่
+                                                        ?</label>
+                                                    <div>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" formControlName="graduated"
+                                                                name="graduated" value="Yes">
+                                                            &nbsp;เคย
+                                                        </label>
+                                                        &nbsp;&nbsp;
+                                                        <label class="radio-inline">
+                                                            <input type="radio" formControlName="graduated"
+                                                                name="graduated" value="No">
+                                                            &nbsp;ไม่เคย
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div formGroupName="graduate">
+                                            <div *ngIf="form.value.req_member.graduated == 'Yes'">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="academy">สำเร็จการศึกษาจาก</label>
+                                                            <input type="text" formControlName="academy"
+                                                                class="form-control" id="academy"
+                                                                placeholder="สำเร็จการศึกษาจาก" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="faculty">คณะ</label>
+                                                            <input type="text" formControlName="faculty"
+                                                                class="form-control" id="faculty" placeholder="คณะ" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="branch">สาขาวิชา</label>
+                                                            <input type="text" formControlName="branch"
+                                                                class="form-control" id="branch"
+                                                                placeholder="สาขาวิชา" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- */ประวัติการศึกษา -->
+
+                                        <!-- ทุนการศึกษา -->
+                                        <h4>6.ทุนการศึกษา</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="address">เคยได้รับทุนการศึกษาหรือไม่ ?</label>
+                                                    <div>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" formControlName="funded" name="funded"
+                                                                value="Yes" (change)="addFund()">
+                                                            &nbsp;เคย
+                                                        </label>
+                                                        &nbsp;&nbsp;
+                                                        <label class="radio-inline">
+                                                            <input type="radio" formControlName="funded" name="funded"
+                                                                value="No" (change)="this.funds.clear()">
+                                                            &nbsp;ไม่เคย
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="form.value.req_member.funded == 'Yes'">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="funds">ทุนการศึกษา</label>
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="text-align: center;width: 25%;">
+                                                                        ปีการศึกษา
+                                                                    </th>
+                                                                    <th style="text-align: center;width: 25%;">ประเภท
+                                                                    </th>
+                                                                    <th style="text-align: center;width: 25%;">
+                                                                        ชื่อทุนการศึกษา
+                                                                    </th>
+                                                                    <th style="text-align: center;width: 20%;">จำนวนเงิน
+                                                                    </th>
+                                                                    <th style="text-align: center;width: 5%;">
+                                                                        #
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody formArrayName="funds">
+                                                                <tr *ngFor="let fund of funds.controls; index as i"
+                                                                    [formGroupName]="i">
+                                                                    <td><input type="text" formControlName="year"
+                                                                            class="form-control" /></td>
+                                                                    <td><input type="text" formControlName="type"
+                                                                            class="form-control" /></td>
+                                                                    <td><input type="text" formControlName="name"
+                                                                            class="form-control" /></td>
+                                                                    <td><input type="text" formControlName="amount"
+                                                                            class="form-control" /></td>
+                                                                    <td>
+                                                                        <button type="button" (click)="removeFund(i)"
+                                                                            class="btn btn-danger btn-flat"
+                                                                            *ngIf="funds.controls.length > 1">ลบ</button>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <button (click)="addFund()"
+                                                                            class="btn btn-primary btn-flat">เพิ่ม</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- */ทุนการศึกษา -->
+                                        <!-- กองทุนเงินให้กู้ยืมเพื่อการศึกษา -->
+                                        <h4>7.กองทุนเงินให้กู้ยืมเพื่อการศึกษา</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label
+                                                        for="borrowed">เคยกู้ยืมเงินจากกองทุนให้กู้ยืมเพื่อการศึกษาหรือไม่
+                                                        ?</label>
+                                                    <div>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" formControlName="borrowed"
+                                                                class="minimal" name="borrowed" value="Yes"
+                                                                (change)="addBorrow()">
+                                                            &nbsp;เคย
+                                                        </label>
+                                                        &nbsp;&nbsp;
+                                                        <label class="radio-inline">
+                                                            <input type="radio" formControlName="borrowed"
+                                                                class="minimal" name="borrowed" value="No"
+                                                                (change)="this.borrows.clear()">
+                                                            &nbsp;ไม่เคย
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="form.value.req_member.borrowed == 'Yes'">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="req_borrows">กู้ยืมเพื่อการศึกษา</label>
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="text-align: center;width: 15%;">
+                                                                        ปีการศึกษา
+                                                                    </th>
+                                                                    <th style="text-align: center;width: 15%;">
+                                                                        ระดับการศึกษา
+                                                                    </th>
+                                                                    <th style="text-align: center;width: 10%;">ชั้นปีที่
+                                                                    </th>
+                                                                    <th style="text-align: center;width: 25%;">สถานศึกษา
+                                                                    </th>
+                                                                    <th style="text-align: center;width: 20%;">
+                                                                        เงินที่กู้ยืม
+                                                                    </th>
+                                                                    <th style="text-align: center;width: 5%;">
+                                                                        #
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody formArrayName="borrows">
+                                                                <tr *ngFor="let borr of borrows.controls; index as i"
+                                                                    [formGroupName]="i">
+                                                                    <td>
+                                                                        <input type="text" formControlName="year"
+                                                                            class="form-control"
+                                                                            placeholder="ปีการศึกษา" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" formControlName="educ_level"
+                                                                            class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" formControlName="stud_level"
+                                                                            class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" formControlName="campus"
+                                                                            class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" formControlName="amount"
+                                                                            class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button" (click)="removeBorrow(i)"
+                                                                            class="btn btn-danger btn-flat"
+                                                                            *ngIf="borrows.controls.length > 1">ลบ</button>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <button (click)="addBorrow()"
+                                                                            class="btn btn-primary btn-flat">เพิ่ม</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- */ทุนการศึกษา -->
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="under-line">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button (click)="previous()"
+                                        class="btn btn-primary btn-flat pull-left">ก่อนหน้า</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button (click)="next()" class="btn btn-primary btn-flat pull-right">ถัดไป</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content 3 -->
+                        <div id="stepperRequest-3" class="content">
+                            <h3 class="box-title">ข้อมูลบิดา/มารดา/ผู้ปกครอง</h3>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="head-instepper">
+                                        <h5>ข้อมูลบิดา</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="father_status">สถานภาพ</label>
+                                                <div>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="minimal" name="fatherStatusRadios"
+                                                            value="1" checked="">
+                                                        &nbsp;&nbsp;ยังมีชีวิตอยู่
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="minimal" name="fatherStatusRadios"
+                                                            value="2">
+                                                        &nbsp;&nbsp;ถึงแก่กรรม
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="minimal" name="fatherStatusRadios"
+                                                            value="2">
+                                                        &nbsp;&nbsp;ไม่ทราบข้อมูล
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="father_name">ชื่อ - นามสกุล บิดา</label>
+                                                <input type="text" class="form-control" id="father_name"
+                                                    placeholder="ชื่อ - นามสกุล บิดา" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="father_id_card">เลชที่บัตรประจำตัวประชาชน</label>
+                                                <input type="text" class="form-control" id="father_id_card"
+                                                    placeholder="เลชที่บัตรประจำตัวประชาชน" />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="req_titlename">คำนำหน้า</label>
-                                                <ng-select formControlName="req_titlename" class="custom"
-                                                    [searchable]="true" [clearable]="false" placeholder="กรุณาเลือก"
-                                                    id="req_titlename">
-                                                    <ng-option value="นาย">นาย</ng-option>
-                                                    <ng-option value="นางสาว">นางสาว</ng-option>
-                                                    <ng-option value="นาง">นาง</ng-option>
-                                                </ng-select>
+                                                <label for="father_age">อายุ (ปี)</label>
+                                                <input type="text" class="form-control" id="father_age"
+                                                    placeholder="อายุ" />
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="req_firstname">ชื่อ</label>
-                                                <input type="text" formControlName="req_firstname" class="form-control"
-                                                    id="req_firstname" placeholder="ชื่อ" />
+                                                <label for="father_education">การศึกษาสูงสุด</label>
+                                                <input type="text" class="form-control" id="father_education"
+                                                    placeholder="การศึกษา" />
                                             </div>
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-group">
-                                                <label for="req_lastname">นามสกุล</label>
-                                                <input type="text" formControlName="req_lastname" class="form-control"
-                                                    id="req_lastname" placeholder="นามสกุล" />
+                                                <label for="father_academy">สถานศึกษา</label>
+                                                <input type="text" class="form-control" id="father_academy"
+                                                    placeholder="สถานศึกษา" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-9">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="req_birthdate">วัน / เดือน / ปี ... เกิด</label>
-                                                <input type="date" formControlName="req_birthdate" class="form-control"
-                                                    id="req_birthdate" placeholder="วัน / เดือน / ปี เกิด" />
+                                                <label for="father_occupation">อาชีพ</label>
+                                                <select class="form-control select2" id="father_occupation">
+                                                    <option value="1">รับราชการ/พนักงานรัฐวิสาหกิจ/พนักงานองค์การของรัฐ
+                                                    </option>
+                                                    <option value="2">พนักงาน/ลูกจ้างบริษัท</option>
+                                                    <option value="3">ค้าขาย</option>
+                                                    <option value="4">รับจ้าง</option>
+                                                    <option value="5">เกษตรกร</option>
+                                                    <option value="6">ไม่ประกอบอาชีพ</option>
+                                                </select>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="father_education_detail">ตำแหน่ง</label>
+                                                <input type="text" class="form-control" id="father_education_detail"
+                                                    placeholder="ตำแหน่ง" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="father_income">รายได้/ปี</label>
+                                                <select class="form-control select2" id="father_income">
+                                                    <option value="1">น้อยกว่า 100,000 บาท/ปี</option>
+                                                    <option value="2">100,000 - 150,000 บาท/ปี</option>
+                                                    <option value="3">150,000 - 200,000 บาท/ปี</option>
+                                                    <option value="4">มากกว่า 200,000 บาท/ปี</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="father_address">ที่อยู่ตามทะเบียนบ้าน</label>
+                                                <input type="text" class="form-control" id="father_address"
+                                                    placeholder="ที่อยู่" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="father_province">จังหวัด</label>
+                                                <select class="form-control select2" id="father_province">
+                                                    <option value="1">นครราชสีมา</option>
+                                                    <option value="2">สระบุรี</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="father_district">อำเภอ/เขต</label>
+                                                <select class="form-control select2" id="father_district">
+                                                    <option value="1">เมืองนครราชสีมา</option>
+                                                    <option value="2">โนนไทย</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="father_sub_district">ตำบล/แขวง</label>
+                                                <select class="form-control select2" id="father_sub_district">
+                                                    <option value="1">ในเมือง</option>
+                                                    <option value="2">สุรนารี</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="father_postcode">รหัสไปรษณีย์</label>
+                                                <input type="text" class="form-control" id="father_postcode"
+                                                    placeholder="รหัสไปรษณีย์" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="father_telephone">หมายเลขโทรศัพท์</label>
+                                                <input type="text" class="form-control" id="father_telephone"
+                                                    placeholder="หมายเลขโทรศัพท์" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="head-instepper">
+                                        <h5>ข้อมูลมารดา</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="mother_status">สถานภาพ</label>
+                                                <div>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="minimal" name="motherStatusRadios"
+                                                            value="1" checked="">
+                                                        &nbsp;&nbsp;ยังมีชีวิตอยู่
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="minimal" name="motherStatusRadios"
+                                                            value="2">
+                                                        &nbsp;&nbsp;ถึงแก่กรรม
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" class="minimal" name="motherStatusRadios"
+                                                            value="2">
+                                                        &nbsp;&nbsp;ไม่ทราบข้อมูล
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="mother_name">ชื่อ - นามสกุล มารดา</label>
+                                                <input type="text" class="form-control" id="mother_name"
+                                                    placeholder="ชื่อ - นามสกุล มารดา" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="mother_id_card">เลชที่บัตรประจำตัวประชาชน</label>
+                                                <input type="text" class="form-control" id="mother_id_card"
+                                                    placeholder="เลชที่บัตรประจำตัวประชาชน" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="req_age">อายุ</label>
-                                                <input type="text" formControlName="req_age" class="form-control"
-                                                    id="req_age" placeholder="อายุ" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="req_nationality">สัญชาติ</label>
-                                                <input type="text" formControlName="req_nationality"
-                                                    class="form-control" id="req_nationality" placeholder="สัญชาติ" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="req_ethnicity">เชื้อชาติ</label>
-                                                <input type="text" formControlName="req_ethnicity" class="form-control"
-                                                    id="req_ethnicity" placeholder="เชื่อชาติ" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label for="req_education_level">ระดับการศึกษา</label>
-                                                <ng-select formControlName="req_education_level" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_education_level"
-                                                    placeholder=" กรุณาเลือก">
-                                                    <ng-option value="1">ประกาศนียบัตรวิชาชีพชั้นสูง</ng-option>
-                                                    <ng-option value="2">ปริญญาตรี</ng-option>
-                                                    <ng-option value="3">ปริญญาโท</ng-option>
-                                                    <ng-option value="4">ปริญญาเอก</ng-option>
-                                                </ng-select>
+                                                <label for="mother_age">อายุ (ปี)</label>
+                                                <input type="text" class="form-control" id="mother_age"
+                                                    placeholder="อายุ" />
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="req_student_level">ชั่นปีที่</label>
-                                                <input type="text" formControlName="req_student_level"
-                                                    class="form-control" id="req_student_level"
-                                                    placeholder="ชั่นปีที่" />
+                                                <label for="mother_education">การศึกษาสูงสุด</label>
+                                                <input type="text" class="form-control" id="mother_education"
+                                                    placeholder="การศึกษา" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-5">
                                             <div class="form-group">
-                                                <label for="req_faculty">คณะ</label>
-                                                <ng-select formControlName="req_faculty" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_faculty"
-                                                    placeholder="กรุณาเลือก">
-                                                    <ng-option value="1">วิศวกรรมศาสตร์และสถาปัตยกรรมศาสตร์</ng-option>
-                                                    <ng-option value="2">วิทยาศาสตร์และศิลปศาสตร์</ng-option>
-                                                </ng-select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="req_branch">สาขาวิชา</label>
-                                                <ng-select formControlName="req_branch" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_branch"
-                                                    placeholder="กรุณาเลือก">
-                                                    <ng-option value="1">วิศวกรรมคอมพิวเตอร์</ng-option>
-                                                </ng-select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="req_program">โปรแกรมวิชา</label>
-                                                <ng-select formControlName="req_program" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_program"
-                                                    placeholder="กรุณาเลือก">
-                                                    <ng-option value="1">
-                                                        1733022 - สาขาวิชาวิศวกรรมคอมพิวเตอร์ (ป.ตรี-ปกติ)
-                                                    </ng-option>
-                                                    <ng-option value="2">
-                                                        1733023 - สาขาวิชาวิศวกรรมคอมพิวเตอร์ (ป.ตรี-สมทบ)
-                                                    </ng-option>
-                                                </ng-select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="req_grade">คะแนนเฉลี่ยสะสมปีการศึกษาก่อนหน้า</label>
-                                                <input type="text" formControlName="req_grade" class="form-control"
-                                                    id="req_grade" placeholder="คะแนนเฉลี่ยสะสม" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- ที่อยู่ตามทะเบียนบ้าน -->
-                                    <h4>2.ที่อยู่ตามทะเบียนบ้าน</h4>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="req_perm_adddress">ที่อยู่ตามทะเบียนบ้าน</label>
-                                                <input type="text" formControlName="req_perm_adddress"
-                                                    class="form-control" id="req_perm_adddress"
-                                                    placeholder="ที่อยู่ตามทะเบียนบ้าน" />
+                                                <label for="mother_academy">สถานศึกษา</label>
+                                                <input type="text" class="form-control" id="mother_academy"
+                                                    placeholder="สถานศึกษา" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="req_perm_province">จังหวัด</label>
-                                                <ng-select formControlName="req_perm_province" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_perm_province"
-                                                    placeholder="กรุณาเลือก">
-                                                    <ng-option value="1">นครราชสีมา</ng-option>
-                                                    <ng-option value="2">สระบุรี</ng-option>
-                                                </ng-select>
+                                                <label for="mother_occupation">อาชีพ</label>
+                                                <select class="form-control select2" id="mother_occupation">
+                                                    <option value="1">รับราชการ/พนักงานรัฐวิสาหกิจ/พนักงานองค์การของรัฐ
+                                                    </option>
+                                                    <option value="2">พนักงาน/ลูกจ้างบริษัท</option>
+                                                    <option value="3">ค้าขาย</option>
+                                                    <option value="4">รับจ้าง</option>
+                                                    <option value="5">เกษตรกร</option>
+                                                    <option value="6">ไม่ประกอบอาชีพ</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="mother_education_detail">ตำแหน่ง</label>
+                                                <input type="text" class="form-control" id="mother_education_detail"
+                                                    placeholder="ตำแหน่ง" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="mother_income">รายได้/ปี</label>
+                                                <select class="form-control select2" id="mother_income">
+                                                    <option value="1">น้อยกว่า 100,000 บาท/ปี</option>
+                                                    <option value="2">100,000 - 150,000 บาท/ปี</option>
+                                                    <option value="3">150,000 - 200,000 บาท/ปี</option>
+                                                    <option value="4">มากกว่า 200,000 บาท/ปี</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="mother_address">ที่อยู่ตามทะเบียนบ้าน</label>
+                                                <input type="text" class="form-control" id="mother_address"
+                                                    placeholder="ที่อยู่" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="mother_province">จังหวัด</label>
+                                                <select class="form-control select2" id="mother_province">
+                                                    <option value="1">นครราชสีมา</option>
+                                                    <option value="2">สระบุรี</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -318,24 +1004,20 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="req_perm_district">อำเภอ/เขต</label>
-                                                <ng-select formControlName="req_perm_district" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_perm_district"
-                                                    placeholder="กรุณาเลือก">
-                                                    <ng-option value="1">เมืองนครราชสีมา</ng-option>
-                                                    <ng-option value="2">โนนไทย</ng-option>
-                                                </ng-select>
+                                                <label for="mother_district">อำเภอ/เขต</label>
+                                                <select class="form-control select2" id="mother_district">
+                                                    <option value="1">เมืองนครราชสีมา</option>
+                                                    <option value="2">โนนไทย</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="req_perm_sub_district">ตำบล/แขวง</label>
-                                                <ng-select formControlName="req_perm_sub_district" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_perm_sub_district"
-                                                    placeholder="กรุณาเลือก">
-                                                    <ng-option value="1">ในเมือง</ng-option>
-                                                    <ng-option value="2">สุรนารี</ng-option>
-                                                </ng-select>
+                                                <label for="mother_sub_district">ตำบล/แขวง</label>
+                                                <select class="form-control select2" id="mother_sub_district">
+                                                    <option value="1">ในเมือง</option>
+                                                    <option value="2">สุรนารี</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -343,322 +1025,19 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="req_perm_postcode">รหัสไปรษณีย์</label>
-                                                <input type="text" formControlName="req_perm_postcode"
-                                                    class="form-control" id="req_perm_postcode"
+                                                <label for="mother_postcode">รหัสไปรษณีย์</label>
+                                                <input type="text" class="form-control" id="mother_postcode"
                                                     placeholder="รหัสไปรษณีย์" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="req_perm_telephone">หมายเลขโทรศัพท์</label>
-                                                <input type="text" formControlName="req_perm_postcode"
-                                                    class="form-control" id="req_perm_telephone"
+                                                <label for="mother_telephone">หมายเลขโทรศัพท์</label>
+                                                <input type="text" class="form-control" id="mother_telephone"
                                                     placeholder="หมายเลขโทรศัพท์" />
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- ที่อยู่ปัจจุบัน -->
-                                    <h4>3.ที่อยู่ปัจจุบัน</h4>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="req_pres_adddress">ที่อยู่ปัจจุบัน</label>
-                                                <input type="text" formControlName="req_pres_adddress"
-                                                    class="form-control" id="req_pres_adddress"
-                                                    placeholder="ที่อยู่ปัจจุบัน" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="req_pres_province">จังหวัด</label>
-                                                <ng-select formControlName="req_pres_province" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_pres_province"
-                                                    placeholder="กรุณาเลือก">
-                                                    <ng-option value="1">นครราชสีมา</ng-option>
-                                                    <ng-option value="2">สระบุรี</ng-option>
-                                                </ng-select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="req_pres_district">อำเภอ/เขต</label>
-                                                <ng-select formControlName="req_pres_district" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_pres_district"
-                                                    placeholder="กรุณาเลือก">
-                                                    <ng-option value="1">เมืองนครราชสีมา</ng-option>
-                                                    <ng-option value="2">โนนไทย</ng-option>
-                                                </ng-select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="req_pres_sub_district">ตำบล/แขวง</label>
-                                                <ng-select formControlName="req_pres_sub_district" class="custom"
-                                                    [searchable]="true" [clearable]="false" id="req_pres_sub_district"
-                                                    placeholder="กรุณาเลือก">
-                                                    <ng-option value="1">ในเมือง</ng-option>
-                                                    <ng-option value="2">สุรนารี</ng-option>
-                                                </ng-select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="req_pres_postcode">รหัสไปรษณีย์</label>
-                                                <input type="text" formControlName="req_pres_postcode"
-                                                    class="form-control" id="req_pres_postcode"
-                                                    placeholder="รหัสไปรษณีย์" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="req_pres_telephone">หมายเลขโทรศัพท์</label>
-                                                <input type="text" formControlName="req_pres_postcode"
-                                                    class="form-control" id="req_pres_telephone"
-                                                    placeholder="หมายเลขโทรศัพท์" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- ผู้อุปการะด้านการเงิน -->
-                                    <h4>4.ผู้อุปการะด้านการเงิน</h4>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="req_sup_name">ข้าพเจ้าได้รับอุปการะด้านการเงินจาก</label>
-                                                <input type="text" formControlName="req_sup_name" class="form-control"
-                                                    id="req_sup_name"
-                                                    placeholder="ข้าพเจ้าได้รับอุปการะด้านการเงินจาก" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="req_sup_relation">มีความสัมพันธ์เป็น</label>
-                                                <input type="text" formControlName="req_sup_relation"
-                                                    class="form-control" id="req_sup_relation"
-                                                    placeholder="มีความสัมพันธ์เป็น" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="req_sup_amount">ได้รับค่าใช้จ่ายเดือนละ
-                                                    (นอกเหนือจากค่าเลาเรียน)</label>
-                                                <input type="text" formControlName="req_sup_amount" class="form-control"
-                                                    id="req_sup_amount" placeholder="ได้รับค่าใช้จ่ายเดือนละ" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- */ผู้อุปการะด้านการเงิน -->
-
-                                    <!-- ประวัติการศึกษา -->
-                                    <h4>5.ประวัติการศึกษา</h4>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="graduate_degree">เคยสำเร็จการศึกษาระดับปริญญาตรีหรือไม่
-                                                    ?</label>
-                                                <div>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" formControlName="req_grad_status"
-                                                            name="req_grad_status" value="Yes">
-                                                        &nbsp;เคย
-                                                    </label>
-                                                    &nbsp;&nbsp;
-                                                    <label class="radio-inline">
-                                                        <input type="radio" formControlName="req_grad_status"
-                                                            name="req_grad_status" value="No">
-                                                        &nbsp;ไม่เคย
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div *ngIf="form.value.req_grad_status == 'Yes'">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="req_grad_from">สำเร็จการศึกษาจาก</label>
-                                                    <input type="text" formControlName="req_grad_from"
-                                                        class="form-control" id="req_grad_from"
-                                                        placeholder="สำเร็จการศึกษาจาก" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="req_grad_faculty">คณะ</label>
-                                                    <input type="text" formControlName="req_grad_faculty"
-                                                        class="form-control" id="req_grad_faculty" placeholder="คณะ" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="req_grad_branch">สาขาวิชา</label>
-                                                    <input type="text" formControlName="req_grad_branch"
-                                                        class="form-control" id="req_grad_branch"
-                                                        placeholder="สาขาวิชา" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- */ประวัติการศึกษา -->
-
-                                    <!-- ทุนการศึกษา -->
-                                    <h4>6.ทุนการศึกษา</h4>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="address">เคยได้รับทุนการศึกษาหรือไม่ ?</label>
-                                                <div>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" formControlName="req_fund_status"
-                                                            name="req_fund_status" value="Yes">
-                                                        &nbsp;เคย
-                                                    </label>
-                                                    &nbsp;&nbsp;
-                                                    <label class="radio-inline">
-                                                        <input type="radio" formControlName="req_fund_status"
-                                                            name="req_fund_status" value="No">
-                                                        &nbsp;ไม่เคย
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div *ngIf="form.value.req_fund_status == 'Yes'">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="req_funds">ทุนการศึกษา</label>
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="text-align: center;width: 25%;">ปีการศึกษา
-                                                                </th>
-                                                                <th style="text-align: center;width: 25%;">ประเภท</th>
-                                                                <th style="text-align: center;width: 25%;">
-                                                                    ชื่อทุนการศึกษา
-                                                                </th>
-                                                                <th style="text-align: center;width: 25%;">จำนวนเงิน
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody formArrayName="req_funds">
-                                                            <tr *ngFor="let fund of req_funds.controls; index as i"
-                                                                [formGroupName]="i">
-                                                                <td><input type="text" formControlName="year"
-                                                                        class="form-control" /></td>
-                                                                <td><input type="text" formControlName="type"
-                                                                        class="form-control" /></td>
-                                                                <td><input type="text" formControlName="name"
-                                                                        class="form-control" /></td>
-                                                                <td><input type="text" formControlName="amount"
-                                                                        class="form-control" /></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <button (click)="addFund()"
-                                                                        class="btn btn-primary btn-flat">เพิ่ม</button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- */ทุนการศึกษา -->
-
-                                    <!-- กองทุนเงินให้กู้ยืมเพื่อการศึกษา -->
-                                    <h4>7.กองทุนเงินให้กู้ยืมเพื่อการศึกษา</h4>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="address">เคยกู้ยืมเงินจากกองทุนให้กู้ยืมเพื่อการศึกษาหรือไม่
-                                                    ?</label>
-                                                <div>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" formControlName="req_borr_status"
-                                                            class="minimal" name="req_borr_status" value="Yes">
-                                                        &nbsp;เคย
-                                                    </label>
-                                                    &nbsp;&nbsp;
-                                                    <label class="radio-inline">
-                                                        <input type="radio" formControlName="req_borr_status"
-                                                            class="minimal" name="req_borr_status" value="No">
-                                                        &nbsp;ไม่เคย
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div *ngIf="form.value.req_borr_status == 'Yes'">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="req_borrows">กู้ยืมเพื่อการศึกษา</label>
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="text-align: center;width: 15%;">ปีการศึกษา
-                                                                </th>
-                                                                <th style="text-align: center;width: 15%;">ระดับการศึกษา
-                                                                </th>
-                                                                <th style="text-align: center;width: 10%;">ชั้นปีที่
-                                                                </th>
-                                                                <th style="text-align: center;width: 30%;">สถานศึกษา
-                                                                </th>
-                                                                <th style="text-align: center;width: 20%;">เงินที่กู้ยืม
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody formArrayName="req_borrows">
-                                                            <tr *ngFor="let borr of req_borrows.controls; index as i"
-                                                                [formGroupName]="i">
-                                                                <td>
-                                                                    <input type="text" formControlName="year"
-                                                                        class="form-control" placeholder="ปีการศึกษา" />
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" formControlName="educ_level"
-                                                                        class="form-control" />
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" formControlName="stud_level"
-                                                                        class="form-control" />
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" formControlName="campus"
-                                                                        class="form-control" />
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" formControlName="amount"
-                                                                        class="form-control" />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <button (click)="addBorrow()"
-                                                                        class="btn btn-primary btn-flat">เพิ่ม</button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- */ทุนการศึกษา -->
                                 </div>
                             </div>
                             <hr class="under-line">

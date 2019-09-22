@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import Stepper from 'bs-stepper';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { AppURL } from 'src/app/app.url';
 import { IAccount, AccountService } from 'src/app/services/account.service';
 import { AuthenService } from 'src/app/services/authen.service';
@@ -36,11 +36,18 @@ export class RequestComponent implements OnInit {
 
     options = true;
 
-    get req_funds(): FormArray { return this.form.get('req_funds') as FormArray }
-    get req_borrows(): FormArray { return this.form.get('req_borrows') as FormArray }
+    get funded(): FormControl { return this.form.get('req_member').get('funded') as FormControl }
 
-    addFund() {
-        this.req_funds.push(
+    get funds(): FormArray { return this.form.get('req_member').get('funds') as FormArray }
+    get borrows(): FormArray { return this.form.get('req_member').get('borrows') as FormArray }
+
+    ngOnInit() {
+        this.stepper = new Stepper(document.querySelector('#stepperRequest'), {});
+    }
+
+    /** เพิ่ม Form รายการที่เคยได้รับทุน */
+    addFund(): void {
+        this.funds.push(
             this.builder.group({
                 year: [],
                 type: [],
@@ -50,8 +57,14 @@ export class RequestComponent implements OnInit {
         );
     }
 
-    addBorrow() {
-        this.req_borrows.push(
+    /** ลบ Form รายการที่เลือก */
+    removeFund(index?: number): void {
+        this.funds.removeAt(index);
+    }
+
+    /** เพิ่ม Form รายการที่เคยกู้ กยศ. */
+    addBorrow(): void {
+        this.borrows.push(
             this.builder.group({
                 year: [],
                 educ_level: [],
@@ -62,12 +75,9 @@ export class RequestComponent implements OnInit {
         );
     }
 
-    ngOnInit() {
-        this.stepper = new Stepper(document.querySelector('#stepperRequest'), {});
-    }
-
-    onSubmit(): void {
-        console.log(this.form.value);
+    /** ลบ Form รายการที่เลือก */
+    removeBorrow(index?: number): void {
+        this.borrows.removeAt(index);
     }
 
     /** ​ดึงข้อมูลผู้ใช้งานจาก Access Token */
@@ -88,6 +98,7 @@ export class RequestComponent implements OnInit {
     /** สร้างฟอร๋ม */
     private createFormData() {
         this.form = this.builder.group({
+            //#region ประเภทการกู้
             req_year: [{ value: "2562", disabled: true }],
             req_campus: [{ value: "1", disabled: true }],
             req_type: ["1"],
@@ -96,57 +107,59 @@ export class RequestComponent implements OnInit {
             req_study_fee: [true],
             req_study_relate: [true],
             req_study_live: [true],
+            //#endregion
 
             //#region ส่วนของข้อมูลส่วนตัว
-            req_titlename: [],
-            req_firstname: [],
-            req_lastname: [],
-            req_birthdate: [],
-            req_age: [{ value: 0, disabled: true }],
-            req_nationality: [],
-            req_ethnicity: [],
-            req_education_level: [],
-            req_student_level: [],
-            req_faculty: [],
-            req_branch: [],
-            req_program: [],
-            req_grade: [],
+            req_member: this.builder.group({
+                titlename: [],
+                firstname: [],
+                lastname: [],
+                birthdate: [],
+                age: [{ value: 0, disabled: true }],
+                nationality: [],
+                ethnicity: [],
+                education_level: [],
+                student_level: [],
+                faculty: [],
+                branch: [],
+                program: [],
+                grade: [],
+                support: this.builder.group({
+                    name: [],
+                    relation: [],
+                    amount: []
+                }),
+                //#region ส่วนของที่อยู่
+                add_permanent: this.builder.group({
+                    adddress: [],
+                    province: [],
+                    district: [],
+                    sub_district: [],
+                    postcode: [],
+                    telephone: []
+                }),
+                add_present: this.builder.group({
+                    adddress: [],
+                    province: [],
+                    district: [],
+                    sub_district: [],
+                    postcode: [],
+                    telephone: []
+                }),
+                //#endregion
+                graduated: ["No"],
+                graduate: this.builder.group({
+                    academy: [],
+                    faculty: [],
+                    branch: []
+                }),
+                funded: ["No"],
+                funds: this.builder.array([]),
+                borrowed: ["No"],
+                borrows: this.builder.array([]),
+
+            }),
             //#endregion
-
-            //#region ส่วนของที่อยู่
-            req_perm_adddress: [],
-            req_perm_province: [],
-            req_perm_district: [],
-            req_perm_sub_district: [],
-            req_perm_postcode: [],
-            req_perm_telephone: [],
-            req_pres_adddress: [],
-            req_pres_province: [],
-            req_pres_district: [],
-            req_pres_sub_district: [],
-            req_pres_postcode: [],
-            req_pres_telephone: [],
-            //#endregion
-
-            //#region ส่วนของผู้อุปการะด้านการเงิน
-            req_sup_name: [],
-            req_sup_relation: [],
-            req_sup_amount: [],
-            //#endregion
-
-            // ส่วนของประวัติการศึกษา
-            req_grad_status: ["No"],
-            req_grad_from: [],
-            req_grad_faculty: [],
-            req_grad_branch: [],
-
-            // ส่วนของทุนการศึกษา
-            req_fund_status: ["No"],
-            req_funds: this.builder.array([]),
-
-            // ส่วนของกองทุนเงินให้กู้ยืมเพื่อการศึกษา
-            req_borr_status: ["No"],
-            req_borrows: this.builder.array([])
         });
     }
 
@@ -156,6 +169,10 @@ export class RequestComponent implements OnInit {
 
     previous() {
         this.stepper.previous();
+    }
+
+    onSubmit(): void {
+        console.log(this.form.value);
     }
 
 }
