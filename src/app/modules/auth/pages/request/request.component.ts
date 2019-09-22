@@ -291,15 +291,6 @@ export class RequestComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.requestService
-            .createRequest(this.form.value)
-            .then(
-                () => {
-                })
-            .catch(
-                err => {
-                    this.alertService.notify(err.Message)
-                });
     }
 
 }
