@@ -1,13 +1,8 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
-import Stepper from 'bs-stepper';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { AppURL } from 'src/app/app.url';
 import { IAccount } from 'src/app/services/account.service';
-import { AlertService } from 'src/app/shared/services/alert.service';
-import { Observable, from, of } from 'rxjs';
-import { RequestService } from '../../services/request.service';
-
-declare const $;
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-request',
@@ -19,13 +14,10 @@ export class RequestComponent implements OnInit {
 
     constructor(
         private builder: FormBuilder,
-        private requestService: RequestService,
-        private alertService: AlertService
+        private _formBuilder: FormBuilder
     ) {
         this.createFormData();
     }
-
-    private stepper: Stepper
 
     Url = AppURL;
     form: FormGroup;
@@ -34,6 +26,10 @@ export class RequestComponent implements OnInit {
 
     options = true;
 
+    isLinear = false;
+    firstFormGroup: FormGroup;
+    secondFormGroup: FormGroup;
+
     get funded(): FormControl { return this.form.get('req_member').get('funded') as FormControl }
     get funds(): FormArray { return this.form.get('req_member').get('funds') as FormArray }
     get borrows(): FormArray { return this.form.get('req_member').get('borrows') as FormArray }
@@ -41,11 +37,22 @@ export class RequestComponent implements OnInit {
     get sibling_works(): FormArray { return this.form.get('req_family').get('sibling_works') as FormArray }
 
     ngOnInit() {
-        this.stepper = new Stepper(document.querySelector('#stepperRequest'), {});
+
+        this.firstFormGroup = this._formBuilder.group({
+            firstCtrl: ['', Validators.required]
+        });
+        this.secondFormGroup = this._formBuilder.group({
+            secondCtrl: ['', Validators.required]
+        });
+
     }
 
     setRequestLoanMem(val) {
         val == "No" ? this.form.get('req_loanproved').setValue('Yes') : this.form.get('req_loanproved').setValue(null);
+    }
+
+    onSubmit() {
+        console.log(this.form.value);
     }
 
     //#region Function ส่วนของหน้า ข้อมูลครอบครัว
@@ -62,6 +69,11 @@ export class RequestComponent implements OnInit {
         )
     }
 
+    /** ลบ Form รายการที่เลือก */
+    removeSiblingStudy(index?: number): void {
+        this.sibling_studies.removeAt(index);
+    }
+
     addSiblingWork(): void {
         this.sibling_works.push(
             this.builder.group({
@@ -72,6 +84,11 @@ export class RequestComponent implements OnInit {
                 school: []
             })
         )
+    }
+
+    /** ลบ Form รายการที่เลือก */
+    removeSiblingWork(index?: number): void {
+        this.sibling_works.removeAt(index);
     }
 
     //#endregion
@@ -135,7 +152,7 @@ export class RequestComponent implements OnInit {
                 firstname: [],
                 lastname: [],
                 birthdate: [],
-                age: [{ value: 0, disabled: true }],
+                age: [{ value: 0, disabled: false }],
                 nationality: [],
                 ethnicity: [],
                 education_level: [],
@@ -228,7 +245,6 @@ export class RequestComponent implements OnInit {
                     })
                 }),
                 marry_status: [],
-                parent_status: ["ยังมีชีวิตอยู่"],
                 parent: this.builder.group({
                     full_name: [],
                     id_card: [],
@@ -281,16 +297,4 @@ export class RequestComponent implements OnInit {
             //#endregion
         });
     }
-
-    next() {
-        this.stepper.next();
-    }
-
-    previous() {
-        this.stepper.previous();
-    }
-
-    onSubmit(): void {
-    }
-
 }

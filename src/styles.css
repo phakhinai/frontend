@@ -4,6 +4,7 @@
 
 /* regular style toast  */
 @import '~ngx-toastr/toastr';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .wrapper {
     background-color: #ecf0f5 !important;

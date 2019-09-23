@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
+import {MatStepperModule, MatInputModule, MatButtonModule} from '@angular/material';
 
 import { AlertService } from './services/alert.service';
 import { HttpService } from './services/http.service';
@@ -26,7 +27,10 @@ import { AuthContentNonsidebarComponent } from './auth-layouts/auth-content-nons
         HttpClientModule,
 
         NgSelectModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        MatStepperModule,
+        MatInputModule,
+        MatButtonModule
     ],
     exports: [
         ReactiveFormsModule,
@@ -34,6 +38,9 @@ import { AuthContentNonsidebarComponent } from './auth-layouts/auth-content-nons
         HttpClientModule,
 
         NgSelectModule,
+        MatStepperModule,
+        MatInputModule,
+        MatButtonModule,
 
         ContentComponent,
         AuthContentComponent,
