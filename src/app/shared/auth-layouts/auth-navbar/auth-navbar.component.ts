@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AppURL } from 'src/app/app.url';
 import { AuthURL } from 'src/app/modules/auth/auth.url';
 import { IAuthNavbarComponent } from './auth-navbar.interface';
@@ -20,14 +20,15 @@ export class AuthNavbarComponent implements OnInit, IAuthNavbarComponent {
         private alertService: AlertService,
         private router: Router
     ) {
-        this.initialLoadUserLogin();
+        // this.initialLoadUserLogin();
     }
 
-    ngOnInit() { }
+    @Input() public simpleText: string;
+    @Input('userLogin') userLogin: IAccount;
 
+    ngOnInit() {}
     AppURL = AppURL;
     AuthURL = AuthURL;
-    userLogin: IAccount;
 
     /** ออกจากระบบ */
     onLogout() {
@@ -36,18 +37,18 @@ export class AuthNavbarComponent implements OnInit, IAuthNavbarComponent {
         this.router.navigate(['/', AppURL.Login]);
     }
 
-    /** ​ดึงข้อมูลผู้ใช้งานจาก Access Token */
-    private initialLoadUserLogin() {
-        this.accountService
-            .getUserLogin(this.authenService.getAuthenticated())
-            .then(res => {
-                this.userLogin = res;
-            })
-            .catch(err => {
-                this.alertService.notify(err.Message);
-                this.authenService.clearAuthenticated();
-                this.router.navigate(['/', AppURL.Login]);
-            });
-    }
+    // /** ​ดึงข้อมูลผู้ใช้งานจาก Access Token */
+    // private initialLoadUserLogin() {
+    //     this.accountService
+    //         .getUserLogin(this.authenService.getAuthenticated())
+    //         .then(res => {
+    //             this.userLogin = res;
+    //         })
+    //         .catch(err => {
+    //             this.alertService.notify(err.Message);
+    //             this.authenService.clearAuthenticated();
+    //             this.router.navigate(['/', AppURL.Login]);
+    //         });
+    // }
 
 }

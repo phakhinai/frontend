@@ -67,7 +67,7 @@
                                     <div class="radio">
                                         <label class="radio">
                                             <input type="radio" formControlName="req_loanmem" class="minimal"
-                                                name="req_loanmem" value="Yes"
+                                                name="req_loanmem" value="New"
                                                 (change)="setRequestLoanMem(form.value.req_loanmem)">
                                             &nbsp;&nbsp;ผู้กู้ยืมเงินรายใหม่
                                         </label>
@@ -75,14 +75,14 @@
                                     <div class="radio">
                                         <label class="radio">
                                             <input type="radio" formControlName="req_loanmem" class="minimal"
-                                                name="req_loanmem" value="No"
+                                                name="req_loanmem" value="Old"
                                                 (change)="setRequestLoanMem(form.value.req_loanmem)">
                                             &nbsp;&nbsp;ผู้กู้ยืมเงินรายเก่า
                                         </label>
                                     </div>
                                 </div>
 
-                                <div class="form-group" *ngIf="form.value.req_loanmem == 'No'">
+                                <div class="form-group" *ngIf="form.value.req_loanmem == 'Old'">
                                     <label>เคยได้รับการอนุมัติให้กู้ที่ มทร.อีสาน หรือไม่ ?</label>
                                     <div class="radio">
                                         <label class="radio">
@@ -129,7 +129,6 @@
                             <button type="button" matStepperNext class="btn btn-primary btn-flat pull-right">
                                 ถัดไป
                             </button>
-                            <!-- <button mat-button matStepperNext>Next</button> -->
                         </div>
                     </form>
                 </mat-step>
@@ -137,6 +136,8 @@
                 <mat-step [stepControl]="secondFormGroup">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()" #formtwo="ngForm">
                         <ng-template matStepLabel>ข้อมูลผู้กู้</ng-template>
+                        <h3 class="box-title">ข้อมูลผู้กู้</h3>
+                        <hr>
                         <h4>1.ข้อมูลส่วนตัวผู้กู้</h4>
                         <!-- ส่วนข้อมูลส่วนตัว -->
                         <div formGroupName="req_member">
@@ -169,30 +170,35 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="birthdate">วัน / เดือน / ปี ... เกิด</label>
-                                        <input type="date" formControlName="birthdate" class="form-control"
-                                            id="birthdate" placeholder="วัน / เดือน / ปี เกิด" />
+                                        <div class="input-group">
+                                            <input formControlName="birthdate" class="form-control"
+                                                [matDatepicker]="birthdate">
+                                            <span class="input-group-addon">
+                                                <mat-datepicker-toggle matSuffix [for]="birthdate">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #birthdate></mat-datepicker>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="age">อายุ</label>
                                         <input type="text" formControlName="age" class="form-control" id="age"
                                             placeholder="อายุ" />
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="nationality">สัญชาติ</label>
                                         <input type="text" formControlName="nationality" class="form-control"
                                             id="nationality" placeholder="สัญชาติ" />
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="ethnicity">เชื้อชาติ</label>
                                         <input type="text" formControlName="ethnicity" class="form-control"
@@ -272,9 +278,9 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="adddress">ที่อยู่ตามทะเบียนบ้าน</label>
-                                            <input type="text" formControlName="adddress" class="form-control"
-                                                id="adddress" placeholder="ที่อยู่ตามทะเบียนบ้าน" />
+                                            <label for="address">ที่อยู่ตามทะเบียนบ้าน</label>
+                                            <input type="text" formControlName="address" class="form-control"
+                                                id="address" placeholder="ที่อยู่ตามทะเบียนบ้าน" />
                                         </div>
                                     </div>
                                 </div>
@@ -323,7 +329,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="telephone">หมายเลขโทรศัพท์</label>
-                                            <input type="text" formControlName="postcode" class="form-control"
+                                            <input type="text" formControlName="telephone" class="form-control"
                                                 id="telephone" placeholder="หมายเลขโทรศัพท์" />
                                         </div>
                                     </div>
@@ -335,9 +341,9 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="adddress">ที่อยู่ปัจจุบัน</label>
-                                            <input type="text" formControlName="adddress" class="form-control"
-                                                id="adddress" placeholder="ที่อยู่ปัจจุบัน" />
+                                            <label for="address">ที่อยู่ปัจจุบัน</label>
+                                            <input type="text" formControlName="address" class="form-control"
+                                                id="address" placeholder="ที่อยู่ปัจจุบัน" />
                                         </div>
                                     </div>
                                 </div>
@@ -386,7 +392,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="telephone">หมายเลขโทรศัพท์</label>
-                                            <input type="text" formControlName="postcode" class="form-control"
+                                            <input type="text" formControlName="telephone" class="form-control"
                                                 id="telephone" placeholder="หมายเลขโทรศัพท์" />
                                         </div>
                                     </div>
@@ -539,8 +545,8 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            <button (click)="addFund()"
+                                                        <td colspan="5">
+                                                            <button type="button" (click)="addFund()"
                                                                 class="btn btn-primary btn-flat">เพิ่ม</button>
                                                         </td>
                                                     </tr>
@@ -630,8 +636,8 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            <button (click)="addBorrow()"
+                                                        <td colspan="6">
+                                                            <button type="button" (click)="addBorrow()"
                                                                 class="btn btn-primary btn-flat">เพิ่ม</button>
                                                         </td>
                                                     </tr>
@@ -658,7 +664,7 @@
                 </mat-step>
 
                 <mat-step [stepControl]="secondFormGroup">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()" #formone="ngForm">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()" #formtree="ngForm">
                         <ng-template matStepLabel>ข้อมูลบิดา/มารดา/ผู้ปกครอง</ng-template>
                         <h3 class="box-title">ข้อมูลบิดา/มารดา/ผู้ปกครอง</h3>
                         <hr>
@@ -791,9 +797,9 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="add_no">ที่อยู่ตามทะเบียนบ้าน</label>
-                                                    <input type="text" formControlName="add_no" class="form-control"
-                                                        id="add_no" placeholder="ที่อยู่" />
+                                                    <label for="address">ที่อยู่ตามทะเบียนบ้าน</label>
+                                                    <input type="text" formControlName="address" class="form-control"
+                                                        id="address" placeholder="ที่อยู่" />
                                                 </div>
                                             </div>
                                         </div>
@@ -979,9 +985,9 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="add_no">ที่อยู่ตามทะเบียนบ้าน</label>
-                                                    <input type="text" formControlName="add_no" class="form-control"
-                                                        id="add_no" placeholder="ที่อยู่" />
+                                                    <label for="address">ที่อยู่ตามทะเบียนบ้าน</label>
+                                                    <input type="text" formControlName="address" class="form-control"
+                                                        id="address" placeholder="ที่อยู่" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1040,12 +1046,66 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h4>10.ข้อมูลผู้ปกครอง (กรณีไม่ใช่ บิดา มารดา)</h4>
-                                <div formGroupName="parent">
+                                <h4>10.สถานภาพสมรสของ บิดา มารดา</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="father_and_mother_marry_status">สถานภาพสมรสของ บิดา
+                                                มารดา</label>
+                                            <div>
+                                                <label class="radio-inline">
+                                                    <input type="radio" formControlName="father_and_mother_marry_status"
+                                                        class="minimal" name="father_and_mother_marry_status"
+                                                        value="อยู่ด้วยกัน">
+                                                    &nbsp;&nbsp;อยู่ด้วยกัน
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" formControlName="father_and_mother_marry_status"
+                                                        class="minimal" name="father_and_mother_marry_status"
+                                                        value="หย่า">
+                                                    &nbsp;&nbsp;หย่า
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" formControlName="father_and_mother_marry_status"
+                                                        class="minimal" name="father_and_mother_marry_status"
+                                                        value="แยกกันอยู่ตามอาชีพ">
+                                                    &nbsp;&nbsp;แยกกันอยู่ตามอาชีพ
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" formControlName="father_and_mother_marry_status"
+                                                        class="minimal" name="father_and_mother_marry_status"
+                                                        value="อื่นๆ">
+                                                    &nbsp;&nbsp;อื่นๆ
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4>11.ข้อมูลผู้ปกครอง (กรณีไม่ใช่ บิดา มารดา)</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="parent_status">มีผู้ปกครองหรือไม่?</label>
+                                            <div>
+                                                <label class="radio-inline">
+                                                    <input type="radio" formControlName="parent_status" class="minimal"
+                                                        name="parent_status" value="Yes">
+                                                    &nbsp;&nbsp;มี
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" formControlName="parent_status" class="minimal"
+                                                        name="parent_status" value="No">
+                                                    &nbsp;&nbsp;ไม่มี
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div formGroupName="parent" *ngIf="form.get('req_family').value.parent_status == 'Yes'">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="full_name">ชื่อ - นามสกุล บิดา</label>
+                                                <label for="full_name">ชื่อ - นามสกุล ผู้ปกครอง</label>
                                                 <input type="text" formControlName="full_name" class="form-control"
                                                     id="full_name" placeholder="ชื่อ - นามสกุล ผู้ปกครอง" />
                                             </div>
@@ -1142,9 +1202,9 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="add_no">ที่อยู่ตามทะเบียนบ้าน</label>
-                                                    <input type="text" formControlName="add_no" class="form-control"
-                                                        id="add_no" placeholder="ที่อยู่" />
+                                                    <label for="address">ที่อยู่ตามทะเบียนบ้าน</label>
+                                                    <input type="text" formControlName="address" class="form-control"
+                                                        id="address" placeholder="ที่อยู่" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1220,7 +1280,7 @@
                 </mat-step>
 
                 <mat-step [stepControl]="secondFormGroup">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()" #formone="ngForm">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()" #formfour="ngForm">
                         <ng-template matStepLabel>ข้อมูลพี่น้อง</ng-template>
                         <h3 class="box-title">ข้อมูลพี่น้อง</h3>
                         <hr>
@@ -1230,26 +1290,29 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>พี่น้องร่วมบิดามารดา (รวมผู้ขอกู้ยืม)</label>
-                                            <input type="text" class="form-control"
+                                            <input type="text" formControlName="total_sibling" class="form-control"
                                                 placeholder="พี่น้องร่วมบิดามารดา" />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>พี่น้องที่เป็น เพศชาย จำนวน</label>
-                                            <input type="text" class="form-control" placeholder="จำนวนพี่น้องเพศชาย" />
+                                            <input type="text" formControlName="total_brother" class="form-control"
+                                                placeholder="จำนวนพี่น้องเพศชาย" />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>พี่น้องที่เป็น เพศหญิง จำนวน</label>
-                                            <input type="text" class="form-control" placeholder="จำนวนพี่น้องเพศหญิง" />
+                                            <input type="text" formControlName="total_sister" class="form-control"
+                                                placeholder="จำนวนพี่น้องเพศหญิง" />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>ข้าพเจ้าเป็นบุตรคนที่</label>
-                                            <input type="text" class="form-control" placeholder="เป็นบุตรคนที่" />
+                                            <input type="text" formControlName="self_sibling" class="form-control"
+                                                placeholder="เป็นบุตรคนที่" />
                                         </div>
                                     </div>
                                 </div>
@@ -1296,7 +1359,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="5">
-                                                            <button (click)="addSiblingStudy()"
+                                                            <button type="button" (click)="addSiblingStudy($event)"
                                                                 class="btn btn-primary btn-flat">เพิ่ม</button>
                                                         </td>
                                                     </tr>
@@ -1348,7 +1411,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="5">
-                                                            <button (click)="addSiblingWork()"
+                                                            <button type="button" (click)="addSiblingWork()"
                                                                 class="btn btn-primary btn-flat">เพิ่ม</button>
                                                         </td>
                                                     </tr>
@@ -1374,14 +1437,33 @@
                 </mat-step>
 
                 <mat-step [stepControl]="secondFormGroup">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()" #formone="ngForm">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()" #formfive="ngForm">
                         <ng-template matStepLabel>ข้อมูลคู่สมรส (ถ้ามี)</ng-template>
                         <h3 class="box-title">ข้อมูลคู่สมรส (ถ้ามี)</h3>
                         <hr>
                         <div class="row">
                             <div class="col-md-12" formGroupName="req_family">
                                 <h4>8.ข้อมูลคู่สมรถ (ถ้ามี)</h4>
-                                <div formGroupName="spouse">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="spouse_status">มีคู่สมรสหรือไม่ ?</label>
+                                            <div>
+                                                <label class="radio-inline">
+                                                    <input type="radio" formControlName="spouse_status" class="minimal"
+                                                        name="spouse_status" value="Yes">
+                                                    &nbsp;&nbsp;มี
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" formControlName="spouse_status" class="minimal"
+                                                        name="spouse_status" value="No">
+                                                    &nbsp;&nbsp;ไม่มี
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div formGroupName="spouse" *ngIf="form.get('req_family').value.spouse_status == 'Yes'">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -1482,9 +1564,9 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="add_no">ที่อยู่ตามทะเบียนบ้าน</label>
-                                                    <input type="text" formControlName="add_no" class="form-control"
-                                                        id="add_no" placeholder="ที่อยู่" />
+                                                    <label for="address">ที่อยู่ตามทะเบียนบ้าน</label>
+                                                    <input type="text" formControlName="address" class="form-control"
+                                                        id="address" placeholder="ที่อยู่" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1553,7 +1635,6 @@
                             </div>
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary btn-flat pull-right">บันทึก</button>
-                                <button mat-button (click)="stepper.reset()">Reset</button>
                             </div>
                         </div>
                     </form>

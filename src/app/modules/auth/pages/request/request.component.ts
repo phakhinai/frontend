@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { AppURL } from 'src/app/app.url';
-import { IAccount } from 'src/app/services/account.service';
+import { IAccount, AccountService } from 'src/app/services/account.service';
 import { Observable } from 'rxjs';
+import { AuthenService } from 'src/app/services/authen.service';
+import { RequestService } from '../../services/request.service';
+import { AlertService } from 'src/app/shared/services/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-request',
@@ -14,9 +18,15 @@ export class RequestComponent implements OnInit {
 
     constructor(
         private builder: FormBuilder,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private alertService: AlertService,
+        private accountService: AccountService,
+        private authenService: AuthenService,
+        private requestService: RequestService,
+        private router: Router
     ) {
         this.createFormData();
+        this.initialLoadData();
     }
 
     Url = AppURL;
@@ -53,6 +63,17 @@ export class RequestComponent implements OnInit {
 
     onSubmit() {
         console.log(this.form.value);
+        /** ส่งข้อมูลไปบันทึก */
+        this.requestService
+            .createRequest(this.form.value)
+            .then(res => {
+                console.log(res);
+                this.alertService.notify('บันทึกข้อมูลสำเร็จ', 'บันทึกข้อมูล', 'success');
+                this.router.navigate(['/', this.Url.Auth]);
+            })
+            .catch(err => {
+                this.alertService.notify(err.Message);
+            });
     }
 
     //#region Function ส่วนของหน้า ข้อมูลครอบครัว
@@ -132,14 +153,28 @@ export class RequestComponent implements OnInit {
 
     //#endregion
 
+    /** กำหนดค่าที่มีอยู่แล้ว */
+    private initialLoadData() {
+        this.accountService
+            .getUserLogin(this.authenService.getAuthenticated())
+            .then(res => {
+                this.form.get('req_member').get('titlename').setValue(res.titlename);
+                this.form.get('req_member').get('firstname').setValue(res.firstname);
+                this.form.get('req_member').get('lastname').setValue(res.lastname);
+            })
+            .catch(err => {
+
+            });
+    }
+
     /** สร้างฟอร๋มทั้งหมด */
     private createFormData() {
         this.form = this.builder.group({
             //#region ประเภทการกู้
-            req_year: [{ value: "2562", disabled: true }],
-            req_campus: [{ value: "1", disabled: true }],
+            req_year: ["2562"],
+            req_campus: ["1"],
             req_type: ["1"],
-            req_loanmem: ["Yes"],
+            req_loanmem: ["New"],
             req_loanproved: [],
             req_study_fee: [true],
             req_study_relate: [true],
@@ -168,7 +203,7 @@ export class RequestComponent implements OnInit {
                 }),
                 //#region ส่วนของที่อยู่
                 add_permanent: this.builder.group({
-                    adddress: [],
+                    address: [],
                     province: [],
                     district: [],
                     sub_district: [],
@@ -176,7 +211,7 @@ export class RequestComponent implements OnInit {
                     telephone: []
                 }),
                 add_present: this.builder.group({
-                    adddress: [],
+                    address: [],
                     province: [],
                     district: [],
                     sub_district: [],
@@ -214,7 +249,7 @@ export class RequestComponent implements OnInit {
                         income: []
                     }),
                     address: this.builder.group({
-                        add_no: [],
+                        address: [],
                         province: [],
                         district: [],
                         sub_district: [],
@@ -236,7 +271,7 @@ export class RequestComponent implements OnInit {
                         income: []
                     }),
                     address: this.builder.group({
-                        add_no: [],
+                        address: [],
                         province: [],
                         district: [],
                         sub_district: [],
@@ -244,7 +279,8 @@ export class RequestComponent implements OnInit {
                         telephone: []
                     })
                 }),
-                marry_status: [],
+                father_and_mother_marry_status: [],
+                parent_status: ["No"],
                 parent: this.builder.group({
                     full_name: [],
                     id_card: [],
@@ -258,7 +294,7 @@ export class RequestComponent implements OnInit {
                         income: []
                     }),
                     address: this.builder.group({
-                        add_no: [],
+                        address: [],
                         province: [],
                         district: [],
                         sub_district: [],
@@ -272,6 +308,7 @@ export class RequestComponent implements OnInit {
                 self_sibling: [],
                 sibling_studies: this.builder.array([]),
                 sibling_works: this.builder.array([]),
+                spouse_status: ["No"],
                 spouse: this.builder.group({
                     full_name: [],
                     id_card: [],
@@ -285,7 +322,7 @@ export class RequestComponent implements OnInit {
                         income: []
                     }),
                     address: this.builder.group({
-                        add_no: [],
+                        address: [],
                         province: [],
                         district: [],
                         sub_district: [],

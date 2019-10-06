@@ -12,7 +12,8 @@ export class HttpService {
         private http: HttpClient
     ) { }
 
-    private address: string = 'http://localhost:3000/';
+    // private address: string = 'http://localhost:3000/';
+    private address: string = 'http://sl.sci.rmuti.ac.th/backend/';
 
     /** ส่งข้อมูลแบบ Get method */
     requestGet(url: string, accessToken?: string) {

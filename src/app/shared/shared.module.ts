@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
-import {MatStepperModule, MatInputModule, MatButtonModule} from '@angular/material';
+import { MatStepperModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
 
 import { AlertService } from './services/alert.service';
 import { HttpService } from './services/http.service';
@@ -29,8 +29,8 @@ import { AuthContentNonsidebarComponent } from './auth-layouts/auth-content-nons
         NgSelectModule,
         ToastrModule.forRoot(),
         MatStepperModule,
-        MatInputModule,
-        MatButtonModule
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     exports: [
         ReactiveFormsModule,
@@ -39,8 +39,8 @@ import { AuthContentNonsidebarComponent } from './auth-layouts/auth-content-nons
 
         NgSelectModule,
         MatStepperModule,
-        MatInputModule,
-        MatButtonModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
 
         ContentComponent,
         AuthContentComponent,
@@ -48,7 +48,18 @@ import { AuthContentNonsidebarComponent } from './auth-layouts/auth-content-nons
     ],
     providers: [
         AlertService,
-        HttpService
+        HttpService,
+        { provide: MAT_DATE_LOCALE, useValue: 'th-TH' },
+        {
+            provide: MAT_DATE_FORMATS, useValue: {
+                parse: {
+                    dateInput: 'DD/MM/YYYY'
+                },
+                display: {
+                    dateInput: 'DD/MM/YYYY'
+                }
+            }
+        }
     ]
 })
 export class SharedModule { }

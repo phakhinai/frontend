@@ -2,11 +2,27 @@
     <div class="box box-default">
         <div class="box-header with-border">
             <a [routerLink]="['/', AppURL.Auth, AuthURL.Request]" type="button"
-                class="btn btn-primary btn-flat">เพิ่มสมาชิก</a>
+                class="btn btn-primary btn-flat">ยื่นกู้เพิ่ม</a>
         </div>
         <!-- form start -->
         <div class="box-body">
-
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;width: 10%;">หมายเลขยื่นกู้</th>
+                        <th style="text-align: center;width: 10%;">ปีที่ยื่นกู้</th>
+                        <th style="text-align: center;width: 10%;">ประเภทการยื่นกู้</th>
+                        <th style="text-align: center;width: 10%;">หมายเลขยื่นกู้</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of items">
+                        <td>{{ item.req_no }}</td>
+                        <td>{{ item.req_year }}</td>
+                        <td>{{ item.req_type }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <!-- /.box-body -->
     </div>

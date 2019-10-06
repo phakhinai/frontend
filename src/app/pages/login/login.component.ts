@@ -51,15 +51,15 @@ export class LoginComponent implements OnInit, ILoginComponent {
             .onLogin(this.form.value)
             .then(
                 res => {
+                    this.submitLoading = false;
                     // เก็บ Access token ไว้ใน Local storage
                     this.authenService.setAuthenticated(res.accessToken);
-                    this.alertService.notify('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', 'info')
-                    this.submitLoading = false;
+                    this.alertService.notify('เข้าสู่ระบบสำเร็จ', 'แจ้งเตือน', 'info');
                     this.router.navigate(['/', this.Url.Auth]);
                 })
             .catch(err => {
-                this.alertService.notify(err.Message)
                 this.submitLoading = false;
+                this.alertService.notify(err.Message);
             });
     }
 
